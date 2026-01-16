@@ -1,0 +1,627 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'matches_list.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen w-screen bg-cover bg-center bg-no-repeat"
+     style="background-image: url('{{ asset('images/blob-scatter-haikei.svg') }}');">
+
+  <div class="min-h-screen w-screen bg-black/30">
+    <div class="mx-auto max-w-6xl px-6 py-12">
+      <div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight text-white">{{ 'matches_list.heading'|trans }}</h1>
+          <p class="mt-1 text-sm text-white/80">{{ 'matches_list.subheading'|trans }}</p>
+        </div>
+        <div class="inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/15">
+          {{ 'matches_list.competition_id'|trans({'%id%': competitionId}) }}
+        </div>
+      </div>
+      {% for label, messages in app.flashes %}
+        {% for message in messages %}
+          {% set danger = (label == 'danger') %}
+          <div class="mb-4 rounded-2xl p-4 shadow-lg ring-1 backdrop-blur
+                      {{ danger ? 'bg-red-50/90 ring-red-200' : 'bg-emerald-50/90 ring-emerald-200' }}">
+            <div class="flex items-start gap-3">
+              <div class="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-xl text-white
+                          {{ danger ? 'bg-red-600' : 'bg-emerald-600' }}">
+                {% if danger %}
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 18 18 6M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                {% else %}
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {% endif %}
+              </div>
+
+              <div class="min-w-0">
+                <div class="text-sm font-extrabold {{ danger ? 'text-red-900' : 'text-emerald-900' }}">
+                  {{ danger ? 'matches_list.flash.error'|trans : 'matches_list.flash.success'|trans }}
+                </div>
+                <div class="text-sm text-slate-700 break-words">{{ message }}</div>
+              </div>
+            </div>
+          
+</div>
+        {% endfor %}
+      {% endfor %}
+
+   
+      {% if is_granted('ROLE_ORGANISATEUR') %}
+        <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <a href="{{ path('app_matchs_scores', { competitionId: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+                   
+ hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                  {{ 'matches_list.orga_menu.scores.title'|trans }}
+                </div>
+      
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.scores.subtitle'|trans }}</div>
+              </div>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="{{ path('app_matchs_comm', { competitionId: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+        
+ hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                 {{ 'matches_list.orga_menu.comments.title'|trans }}
+            
+     </div>
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.comments.subtitle'|trans }}</div>
+              </div>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+              
+    <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="{{ path('app_match_horaire', { competitionId: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+                    hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                {{ 'matches_list.orga_menu.schedule.title'|trans }}
+   
+              </div>
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.schedule.subtitle'|trans }}</div>
+              </div>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+     
+              <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          
+
+         
+     
+      <a href="{{ path('app_matchs_export', { id: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+                    hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+           
+      <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                   {{ 'matches_list.orga_menu.exportICAL.title'|trans }}
+                </div>
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.exportICAL.subtitle'|trans }}</div>
+              </div>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+  
+         </a>
+
+		 <a href="{{ path('app_matchs_export_json', { id: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+                    hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+           
+      <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                   {{ 'matches_list.orga_menu.exportJSON.title'|trans }}
+                </div>
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.exportJSON.subtitle'|trans }}</div>
+              </div>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+  
+         </a>
+
+          <a href="{{ path('app_matchs_parametres', { competitionId: competitionId }) }}"
+             class="group rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 backdrop-blur
+                    hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition focus:outline-none focus:ring-4 focus:ring-emerald-500/20">
+            <div class="flex items-start justify-between gap-3">
+             
+  <div class="min-w-0">
+                <div class="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                  {{ 'matches_list.orga_menu.bracket.title'|trans }}
+                </div>
+                <div class="mt-1 text-xs text-slate-500">{{ 'matches_list.orga_menu.bracket.subtitle'|trans }}</div>
+              </div>
+    
+           <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white group-hover:bg-emerald-700 transition">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              
+ </span>
+            </div>
+          </a>
+
+        </div>
+      {% endif %}
+
+	  {% if is_granted('ROLE_ORGANISATEUR') %}
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="text-white/80 text-sm">
+      {{ 'matches_list.quick_action.finish_all_label'|trans }}
+    </div>
+
+    <a href="{{ path('app_competition_classement', { competitionId: competition.id }) }}"
+        class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600 transition">
+        <span aria-hidden="true">🏆</span>
+        {{ 'matches_list.orga_menu.ranking.leaderboard'|trans }}
+    </a>
+
+  <form method="post"
+        action="{{ path('app_matchs_projection', { id: competitionId }) }}"
+  
+    id="projectMatchesForm"
+        class="inline-flex">
+
+    <button type="submit"
+            class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-extrabold text-white
+                    hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 shadow-lg shadow-emerald-700/20
+                    transition">
+      
+{{ 'matches_list.orga_menu.projection.title'|trans }}
+    </button>
+  </form>
+
+  <form method="post"
+        action="{{ path('app_matchs_generer', { competitionId: competitionId }) }}"
+  
+    id="generateMatchesForm"
+        class="inline-flex">
+
+    <button type="submit"
+            class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-extrabold text-white
+                    hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 shadow-lg shadow-emerald-700/20
+                    transition">
+      
+{{ 'matches_list.orga_menu.generation.title'|trans }}
+    </button>
+  </form>
+
+    <form method="post"
+          action="{{ path('app_matchs_terminer_tout', { competitionId: competitionId }) }}"
+    
+      id="finishAllForm"
+          class="inline-flex">
+
+      <button type="submit"
+              class="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-extrabold text-white
+                     hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 shadow-lg shadow-emerald-700/20
+                     transition">
+       
+  {{ 'matches_list.quick_action.finish_all_button'|trans }}
+      </button>
+    </form>
+  </div>
+{% endif %}
+
+
+   
+      <div class="rounded-2xl bg-white/90 shadow-lg ring-1 ring-black/5 backdrop-blur overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200/70">
+          <div class="text-sm font-semibold text-slate-900">{{ 'matches_list.card_list.title'|trans }}</div>
+          <div class="text-xs text-slate-500">{{ 'matches_list.card_list.subtitle'|trans }}</div>
+        </div>
+
+        <div class="divide-y divide-slate-200/70">
+      
+     {% set shown = 0 %}
+
+          {% for match in matchs %}
+            {% if match.statusA == 1 and match.statusB == 1 %}
+              {% set shown = shown + 1 %}
+
+              <div class="match-row p-6 hover:bg-slate-50/70 transition" data-match-row data-match-id="{{ match.id }}">
+
+            
+     <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+                 
+                  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+
+                    {% set Aforfait = match.forfaitEquipeA == 1 %}
+                    <div class="relative 
+ w-full sm:w-auto rounded-2xl p-3 ring-1 ring-slate-200 bg-white
+                                transition-all duration-300 {{ Aforfait ? 'opacity-60 grayscale' : '' }}">
+                      {% if Aforfait %}
+                        <div class="pointer-events-none absolute inset-0 rounded-2xl
+                                    bg-[repeating-linear-gradient(135deg,rgba(239,68,68,0.18)_0,rgba(239,68,68,0.18)_10px,transparent_10px,transparent_20px)]"></div>
+       
+                  <span class="absolute -top-2 -right-2 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white shadow">
+                          {{ 'matches_list.card.forfeit_badge'|trans }}
+                        </span>
+                      
+{% endif %}
+                      <div class="relative flex items-center gap-3">
+                        <img class="h-12 w-12 rounded-full bg-white ring-1 ring-black/10 p-1"
+                             src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{ match.equipeA }}"
+          
+                    alt="Avatar {{ match.equipeA }}" loading="lazy"/>
+                        <div>
+                          <div class="text-sm font-semibold text-slate-900 {{ Aforfait ? 'line-through decoration-red-500/70' : '' }}">
+                            {{ match.equipeA }}
+                          </div>
+                          <div class="text-xs {{ Aforfait ? 'text-red-600 font-semibold' : 'text-green-600' }}">
+                            {{ Aforfait ? 'matches_list.card.team_forfeit'|trans : 'matches_list.card.team_green'|trans }}
+                          </div>
+                        </div>
+          
+             </div>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                      <span class="inline-flex items-center justify-center rounded-xl bg-slate-100 px-3 py-1 text-xs ring-1 ring-slate-200 text-slate-600 font-semibold">
+           
+              {{ 'matches_list.card.vs'|trans }}
+                      </span>
+                    </div>
+
+                    {% set Bforfait = match.forfaitEquipeB == 1 %}
+                  
+   <div class="relative w-full sm:w-auto rounded-2xl p-3 ring-1 ring-slate-200 bg-white
+                                transition-all duration-300 {{ Bforfait ? 'opacity-60 grayscale' : '' }}">
+                      {% if Bforfait %}
+                        <div class="pointer-events-none absolute inset-0 rounded-2xl
+                                    bg-[repeating-linear-gradient(135deg,rgba(239,68,68,0.18)_0,rgba(239,68,68,0.18)_10px,transparent_10px,transparent_20px)]"></div>
+       
+                  <span class="absolute -top-2 -right-2 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white shadow">
+                          {{ 'matches_list.card.forfeit_badge'|trans }}
+                        </span>
+                      
+{% endif %}
+                      <div class="relative flex items-center gap-3">
+                        <img class="h-12 w-12 rounded-full bg-white ring-1 ring-black/10 p-1"
+                             src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{ match.equipeB }}"
+          
+                    alt="Avatar {{ match.equipeB }}" loading="lazy"/>
+                        <div>
+                          <div class="text-sm font-semibold text-slate-900 {{ Bforfait ? 'line-through decoration-red-500/70' : '' }}">
+                            {{ match.equipeB }}
+                          </div>
+                          <div class="text-xs {{ Bforfait ? 'text-red-600 font-semibold' : 'text-sky-600' }}">
+                            {{ Bforfait ? 'matches_list.card.team_forfeit'|trans : 'matches_list.card.team_blue'|trans }}
+                          </div>
+                        </div>
+          
+             </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap items-start gap-3 sm:gap-4 lg:justify-end">
+    
+                 <div class="rounded-xl bg-slate-50 px-4 py-2 ring-1 ring-slate-200">
+                      <div class="text-xs font-semibold text-slate-700">{{ 'matches_list.card.score_label'|trans }}</div>
+                      <div class="text-sm font-semibold text-slate-900">{{ match.score ?: "-" }}</div>
+                    </div>
+
+    
+                 <div class="rounded-xl bg-slate-50 px-4 py-2 ring-1 ring-slate-200">
+                      <div class="text-xs font-semibold text-slate-700">{{ 'matches_list.card.schedule_label'|trans }}</div>
+                      <div class="text-sm font-semibold text-slate-900">
+                        {{ match.horaire ? match.horaire|date('d/m H:i') : "-" }}
+                      </div>
+                    </div>
+
+                    <div class="rounded-xl bg-slate-50 px-4 py-2 ring-1 ring-slate-200">
+                      <div class="text-xs font-semibold text-slate-700">{{ 'matches_list.card.pitch_label'|trans }}</div>
+   
+                    <div class="text-sm font-semibold text-slate-900">{{ match.terrain ?: "-" }}</div>
+                    </div>
+
+                    <div class="rounded-xl bg-slate-50 px-4 py-2 ring-1 ring-slate-200 max-w-sm">
+                      <div class="text-xs font-semibold text-slate-700">{{ 'matches_list.card.comment_label'|trans }}</div>
+  
+                     <div class="text-sm text-slate-700 line-clamp-2">
+                        {{ match.commentaire is not empty ? match.commentaire : "matches_list.card.no_comment"|trans }}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                {% if is_granted('ROLE_ORGANISATEUR') %}
+                  <div class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
+
+                    {% if match.forfaitEquipeA == 0 %}
+                      <a href="{{ path('app_equipe_forfaitA', { id: match.id }) }}"
+ 
+                         class="inline-flex items-center justify-center rounded-xl bg-green-600 px-4 py-2 text-xs font-semibold text-white
+                                hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-600/20 transition">
+                        {{ 'matches_list.card.actions.green_forfeit'|trans }}
+     
+                  </a>
+                    {% else %}
+                      <span class="inline-flex items-center justify-center rounded-xl bg-white/60 px-4 py-2 text-xs font-semibold text-slate-400 ring-1 ring-slate-200 cursor-not-allowed">
+                        {{ 'matches_list.card.actions.green_forfeit_applied'|trans }}
+                      </span>
+                    {% endif %}
+
+                    {% if match.forfaitEquipeB == 0 %}
+                      <a href="{{ path('app_equipe_forfaitB', { id: match.id }) }}"
+  
+                        class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-xs font-semibold text-white
+                                hover:bg-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-600/20 transition">
+                        {{ 'matches_list.card.actions.blue_forfeit'|trans }}
+      
+                 </a>
+                    {% else %}
+                      <span class="inline-flex items-center justify-center rounded-xl bg-white/60 px-4 py-2 text-xs font-semibold text-slate-400 ring-1 ring-slate-200 cursor-not-allowed">
+                        {{ 'matches_list.card.actions.blue_forfeit_applied'|trans }}
+ 
+                      </span>
+                    {% endif %}
+
+                    <form method="post" action="{{ path('app_match_terminer', { id: match.id }) }}">
+                      <button type="submit"
+      
+                         class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white
+                                     hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition">
+                        {{ 'matches_list.card.actions.finish'|trans }}
+  
+                     </button>
+                    </form>
+
+                    <form method="post" action="{{ path('app_match_supprimer', { id: match.id }) }}" data-delete-form>
+                      <button type="submit" data-delete-btn
+       
+                        class="inline-flex items-center justify-center rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white
+                                     hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-600/20 transition">
+                        {{ 'matches_list.card.actions.delete'|trans }}
+   
+                    </button>
+                    </form>
+
+                  </div>
+                {% endif %}
+
+              </div>
+           
+  {% endif %}
+          {% endfor %}
+
+          {% if shown == 0 %}
+            <div class="p-10 text-center">
+              <div class="text-lg font-semibold text-slate-900">{{ 'matches_list.card_list.empty'|trans }}</div>
+            </div>
+          {% endif %}
+        </div>
+     
+  </div>
+
+     
+      <div id="afficherABR" class="flex justify-center my-6">
+        <button data-modal-target="bracket-modal" data-modal-toggle="bracket-modal" type="button"
+                class="inline-flex items-center px-6 py-3 text-sm font-extrabold text-white bg-emerald-600 rounded-xl
+                       hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 shadow-lg shadow-emerald-600/20
+                     
+   transition-all duration-200">
+          <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 17V7m0 10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m0 10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 7a2 2 0 0 1 2-2h2a2 2 0 0 1 
+ 2 2m3 10V7l3 3m-3 0h3"/>
+          </svg>
+          {{ 'matches_list.bracket.show_button'|trans }}
+        </button>
+      </div>
+
+      <div id="bracket-modal" tabindex="-1" aria-hidden="true"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0
+            h-[calc(100%-1rem)] max-h-full bg-black/50 backdrop-blur-sm">
+  <div class="relative w-full max-w-6xl max-h-full mx-auto">
+
+    <div class="relative bg-slate-50 rounded-2xl shadow-2xl overflow-hidden border border-white">
+      <div class="flex items-center justify-between p-4 md:p-5 border-b border-slate-200 bg-white">
+        <h3 class="text-xl font-extrabold text-slate-900">
+          {% if competition.nbEquipesMaxBracket > 0 %}
+            Structure de l'arbre finale : ({{ competition.nbEquipesMaxBracket }} équipes)
+          {% else %}
+            Aucun arbre défini pour le moment
+          {% endif %}
+        </h3>
+
+        <button type="button"
+                class="text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm w-9 h-9
+                       inline-flex justify-center items-center"
+                data-modal-hide="bracket-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+        </button>
+      </div>
+
+      {% if competition.nbEquipesMaxBracket > 0 %}
+        <div class="p-6 overflow-x-auto bg-[#f8fafc]">
+          <div class="flex flex-row gap-8 min-w-max p-4">
+
+            {# 32 équipes -> 16èmes #}
+            {% if competition.nbEquipesMaxBracket == 32 %}
+              <div class="flex flex-col justify-around gap-2">
+                <span class="text-[10px] font-extrabold text-slate-400 text-center uppercase">16èmes</span>
+                {% for i in 1..16 %}
+                  <div class="w-32 bg-white border border-slate-200 rounded-xl p-2 text-[10px] shadow-sm">
+                    <div class="truncate">Equipe {{ (i * 2) - 1 }}</div>
+                    <div class="border-t mt-1 pt-1 truncate">Equipe {{ i * 2 }}</div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {# 16+ -> 8èmes #}
+            {% if competition.nbEquipesMaxBracket >= 16 %}
+              <div class="flex flex-col justify-around gap-4">
+                <span class="text-[10px] font-extrabold text-slate-400 text-center uppercase">8èmes</span>
+                {% for i in 1..8 %}
+                  <div class="w-32 bg-white border border-slate-200 rounded-xl p-3 text-xs italic text-slate-400 shadow-sm">
+                    Gagnant...
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {# 8+ -> quarts #}
+            {% if competition.nbEquipesMaxBracket >= 8 %}
+              <div class="flex flex-col justify-around gap-4">
+                <span class="text-[10px] font-extrabold uppercase text-slate-400 text-center mb-2">Quarts de finale</span>
+                {% for i in 1..4 %}
+                  <div class="w-52 bg-white border border-slate-200 rounded-2xl shadow-sm p-4">
+                    <div class="text-xs font-bold text-slate-500 border-b pb-2 mb-2">Match {{ i }}</div>
+                    <div class="text-sm font-semibold text-slate-900 truncate">Equipe {{ (i * 2) - 1 }}</div>
+                    <div class="text-sm font-semibold text-slate-900 truncate border-t pt-2 mt-2">Equipe {{ i * 2 }}</div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {# 4+ -> demies #}
+            {% if competition.nbEquipesMaxBracket >= 4 %}
+              <div class="flex flex-col justify-around gap-8">
+                <span class="text-[10px] font-extrabold uppercase text-slate-400 text-center mb-2">Demi-finales</span>
+                {% for i in 1..2 %}
+                  <div class="w-52 bg-white border border-slate-200 rounded-2xl shadow-md p-4 border-l-4 border-l-emerald-500">
+                    <div class="text-sm italic text-slate-400 mb-2">Gagnant M{{ (i * 2) - 1 }}</div>
+                    <div class="text-sm italic text-slate-400 border-t pt-2">Gagnant M{{ i * 2 }}</div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {# Finale (toujours affichée si bracket actif) #}
+            <div class="flex flex-col justify-center">
+              <span class="text-[10px] font-extrabold uppercase text-emerald-600 text-center mb-2">Grande Finale</span>
+              <div class="w-60 bg-emerald-900 rounded-2xl shadow-xl p-5 border-2 border-emerald-400">
+                <div class="flex items-center gap-2 text-white mb-3">
+                  <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                  <span class="text-xs font-extrabold uppercase">Championnat</span>
+                </div>
+
+                <div class="h-10 bg-white/10 rounded-xl mb-3 animate-pulse"></div>
+                <div class="h-10 bg-white/10 rounded-xl animate-pulse"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% else %}
+        <div class="p-10 text-center bg-white">
+          <div class="text-lg font-semibold text-slate-900">Aucun arbre défini</div>
+          <div class="mt-2 text-sm text-slate-600">Configure le bracket dans les paramètres.</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+   
+      <div id="barFlottante"
+           class="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-md rounded-2xl bg-white/95 shadow-lg ring-1 ring-black/10
+                  transition duration-300">
+        <div class="p-3">
+ 
+          <button data-modal-target="bracket-modal" data-modal-toggle="bracket-modal" type="button"
+                  class="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-extrabold text-white bg-emerald-600 rounded-xl
+                         hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 shadow-lg shadow-emerald-600/20
+                         transition-all duration-200">
+    
+         <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 17V7m0 10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m0 10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 
+ 2m3 10V7l3 3m-3 0h3"/>
+            </svg>
+            {{ 'matches_list.bracket.show_button'|trans }}
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes deleteOut {
+    0% { opacity: 1; transform: translateX(0) scale(1); max-height: 500px; }
+    40% { opacity: 0.9; transform: translateX(10px) scale(0.99); }
+    100% { opacity: 0; transform: translateX(40px) scale(0.97); max-height: 0; }
+  }
+  .deleting { overflow: hidden; animation: deleteOut 420ms ease-in forwards; }
+</style>
+
+<script>
+  
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-delete-btn]");
+    if (!btn) return;
+
+    e.preventDefault();
+
+    const form = btn.closest("[data-delete-form]");
+    const row  = btn.closest("[data-match-row]");
+
+    if (!form || !row) { form?.submit(); return; }
+
+    btn.disabled = true;
+    btn.classList.add("opacity-60", "cursor-not-allowed");
+    row.classList.add("deleting");
+
+    setTimeout(() => form.submit(), 420);
+  });
+ const floating = document.getElementById("barFlottante");
+  const other = document.getElementById("afficherABR");
+
+  if (floating && other) {
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        floating.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+      } else {
+        floating.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
+      }
+    }, { threshold: 0.1 });
+ obs.observe(other);
+  }
+</script>
+{% endblock %}

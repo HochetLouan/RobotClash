@@ -1,0 +1,610 @@
+home:
+  title: "Robot Clash"
+  subtitle: "Organisez et suivez des matchs de football robot en toute simplicité."
+  login: "Se connecter"
+  view_tournaments: "Voir les tournois disponibles"
+
+login:
+  title: "Connexion"
+  image_alt: "image robot pour connexion"
+  error_invalid_credentials: "Email ou mot de passe incorrect"
+  email: "Email"
+  password: "Mot de passe"
+  remember_me: "Se souvenir de moi"
+  submit: "Se connecter"
+  forgot_password: "Mot de passe oublié ?"
+  already_logged: "⛔ Vous êtes déjà connecté(e) !"
+
+nav:
+  main:
+    home: "Accueil"
+    stats: "Rencontres / Statistiques"
+    competitions: "Voir les compétitions"
+  actions:
+    participate: "Participer"
+    manage: "Gérer"
+    login_register: "Connexion / Inscription"
+    login: "Connexion"
+    register: "Inscription"
+    logout: "Déconnexion"
+    profile: "Profil"
+    back_to_account: "Revenir à mon compte"
+  user:
+    my_teams: "Mes équipes"
+    my_competitions: "Mes compétitions"
+    role_user: "Utilisateur"
+    role_organizer: "Organisateur"
+  create:
+    create_team: "Créer une équipe"
+    create_competition: "Créer une compétition"
+    view_users: "Voir les utilisateurs"
+    view_organizers: "Voir les organisateurs"
+  language:
+    title: "Langue"
+    subtitle: "Choisir la traduction"
+    french: "Français"
+    english: "Anglais"
+    spanish: "Espagnol"
+    japanese: "Japonais"
+    dutch: "Néerlandais"
+    error_unsupported: "Langue non supportée"
+  mobile:
+    explore_title: "Rencontre / Statistique"
+    explore_subtitle: "Explorer les équipes et les matchs"
+    participate_subtitle: "Créer une équipe ou un tournoi"
+    manage_subtitle: "Créer une équipe ou un tournoi"
+    account_subtitle: "Accéder à ton compte"
+  accessibility:
+    open_menu: "Ouvrir le menu"
+    open_user_menu: "Ouvrir menu d'utilisateur"
+  misc:
+    arrow: "→"
+
+competition:
+  create_title: "Créer une compétition"
+  create_new: "Créer une nouvelle compétition"
+  fill_info: "Remplis les informations principales puis valide la création."
+  details_create: "Détails de la compétition"
+  required_fields: "Les champs marqués sont obligatoires."
+  tip_date: "Conseil : vérifie que la date de fin est bien ≥ à la date de début."
+  edit_title: "Modifier une compétition"
+  edit_heading: "Modifier la compétition"
+  edit_subheading: "Mets à jour les infos, puis valide."
+  organizer: "Organisateur"
+  details_edit: "Détails"
+  details: "Détails de la compétition"
+  name: "Nom"
+  name_placeholder: "Nom de la compétition"
+  description: "Description"
+  description_placeholder: "Une description courte et utile..."
+  location: "Lieu"
+  location_placeholder: "Ex: Gymnase A"
+  nb_terrains: "Nombre de Terrains"
+  start_date: "Date début"
+  end_date: "Date fin"
+  access_denied: "⛔ Accès réservé aux organisateurs"
+  organizer_only: "Connecte-toi avec un compte organisateur."
+  error:
+    not_found: "Compétition introuvable."
+    team_not_found: "Équipe introuvable."
+    save_failed: "Impossible de s'enregistrer : le nom de compétition est déjà utilisé ou les dates ne sont pas correctes"
+  flash:
+    created: "La compétition a été créée avec succès !"
+    error_create: "Impossible de créer la compétition (nom déjà utilisé ou données invalides)."
+    status_updated: "Les modifications ont été enregistrées avec succès."
+    error_status: "Erreur lors de la mise à jour des données ou format de date invalide."
+    deleted: "La compétition a été supprimée définitivement."
+    error_delete: "Impossible de supprimer la compétition."
+
+
+flash:
+  error: "Une erreur technique est survenue."
+  success: "Succès :"
+
+button:
+  back: "← Retour"
+  create_competition: "Créer la compétition"
+  save_changes: "Valider les modifications"
+
+competition_list:
+  title: "Compétitions"
+  heading: "Compétitions"
+  subheading: "Liste des compétitions"
+  total: "Total : %{total}"
+  search:
+    placeholder: "Rechercher…"
+    button: "Rechercher"
+  status:
+    ongoing: "En cours"
+    upcoming: "À venir"
+    finished: "Terminée"
+  cards:
+    location: "Lieu"
+    date: "Date"
+    teams: 
+      title: "Voir les équipes"
+      subtitle: "Équipes inscrites"
+      button: "Continuer"
+    matches:
+      title: "Matchs"
+      subtitle: "Voir la liste"
+      button: "Regarder"
+    registration:
+      title: "Inscription"
+      subtitle: "Ajouter une équipe"
+      continue: "Continuer"
+      login: "Connecte-toi"
+    manage_teams:
+      title: "Valider les equipes"
+      continue: "Continuer"
+    description: "Description"
+    edit_competition: "Modifier la compétition"
+    delete_competition: "Supprimer la compétition"
+  modal:
+    delete:
+      title: "Supprimer la compétition"
+      warning: "Cette action est définitive."
+      confirm: "Oui, supprimer"
+      cancel: "Annuler"
+      tip: "Astuce : touche ESC pour fermer"
+      message: "Es-tu sûr de vouloir supprimer cette compétition ?"
+      message_detail: "Tous les éléments liés pourraient devenir inaccessibles."
+    members:
+      title: "Équipes inscrites"
+      close: "Fermer"
+      no_teams: "Aucune équipe inscrite."
+      send_email: "Envoyer un mail à l’équipe"
+  empty:
+    title: "Aucune compétition"
+    message: "Revenez plus tard ou créez-en une."
+  pagination:
+    previous: "Précédent"
+    next: "Suivant"
+  associated_competition: "Compétition Associée"
+auth:
+  register:
+    title: "Inscription"
+    heading: "Inscription"
+    firstname: "Prénom"
+    lastname: "Nom"
+    email: "Email"
+    password: "Mot de passe"
+    submit: "S’inscrire"
+    already_logged: "⛔ Vous avez déjà un compte et êtes connecté(e) !"
+    error_email_taken: "Impossible de s'enregistrer : l'adresse Email est déjà utilisée."
+
+registration_management:
+  title: "Gérer les équipes"
+  heading: "Gérer les équipes"
+  subheading: "Accepte, mets en attente ou refuse les demandes d’inscription."
+  request_count: "demande(s)"
+  role_organizer: "Organisateur"
+  team_id: "ID équipe"
+  validation_tip: "Le badge se mettra à jour après validation."
+  save_reminder: "Les statuts des inscriptions ont été mis à jour."
+  submit: "Valider les statuts"
+  label:
+    establishment: "Établissement"
+    members: "Membres"
+    status: "Statut"
+  status:
+    pending: "En attente"
+    accepted: "Accepté"
+    refused: "Refusé"
+  empty:
+    title: "Aucune demande pour le moment"
+    subtitle: "Aucune équipe n’a demandé l’inscription à cette compétition."
+  filter:
+    all: "Toutes"
+    pending: "En attente"
+    accepted: "Acceptées"
+    refused: "Refusées"
+competition_filter:
+  all: "Tous"
+  ongoing: "En cours"
+  upcoming: "À venir"
+  finished: "Terminées"
+my_teams:
+  title: "Mes équipes"
+  heading: "Mes équipes"
+  subheading: "Consulte l’état de tes inscriptions et continue ta participation."
+  total: "Total : %count%"
+  access_denied_title: "⛔ Accès réservé aux Utilisateurs"
+  access_denied_subtitle: "Connecte-toi avec un compte Utilisateur."
+  label:
+    advice: "Conseil"
+  button:
+    login: "Se connecter"
+    edit: "Modifier mon equipe"
+    view_competition: "Voir la Compétition"
+  status:
+    accepted: "Acceptée"
+    pending: "En attente"
+    refused: "Refusée"
+  advice:
+    accepted: "Ton équipe est validée : tu peux consulter les matchs."
+    pending: "Ton inscription est en cours de validation par un organisateur."
+    refused: "Ton inscription a été refusée : vérifie les informations ou contacte l’organisateur."
+  empty:
+    title: "Aucune équipe associée à ton compte"
+    subtitle: "Inscris-toi à une compétition pour créer/ajouter une équipe."
+team_registration:
+  title: "Inscrire l'équipe"
+  heading: "Inscrire Une équipe"
+  label:
+    team_name: "Nom de l'équipe"
+    establishment: "Établissement"
+  button:
+    add_members_modal: "Ajouter des membres"
+    submit: "Inscrire l'équipe"
+  error:
+    access_denied: "⛔ Accès réservé aux utilisateurs. Vous devez être connecté."
+    name_taken: "Ce nom est déjà réservé pour une autre équipe."
+    name_taken_competition: "Impossible de modifier : le nom de l'équipe est déjà utilisé dans cette compétition."
+    not_found: "Équipe introuvable."
+  modal:
+    title: "Ajouter des membres"
+    subtitle: "Renseigne email, prénom, nom puis “Ajouter le membre”."
+    close: "Fermer"
+    list_title: "Membres ajoutés"
+    empty_list: "Aucun membre ajouté pour le moment."
+    label:
+      email: "Email"
+      firstname: "Prénom"
+      lastname: "Nom"
+    placeholder:
+      email: "ex: jean.dupont@email.com"
+      firstname: "Jean"
+      lastname: "Dupont"
+    button:
+      add: "Ajouter le membre"
+      remove: "Retirer"
+      cancel: "Annuler"
+      finalize: "Finaliser"
+    error:
+      fill_all: "Merci de remplir tous les champs du membre."
+      invalid_email: "Email invalide."
+      duplicate_email: "Cet email est déjà dans la liste."
+  edit:
+    title: "Modifier l'équipe"
+    heading: "Modifier Une équipe"
+    submit: "Modifier"
+  flash:
+    edit_success: "Équipe modifiée avec succès !"
+
+organizers_list:
+  title: "Liste des organisateurs"
+  heading: "Organisateurs"
+  subheading: "Liste des comptes organisateurs enregistrés sur la plateforme"
+  total: "Total : %total%"
+  search:
+    label: "Recherche"
+    placeholder: "Rechercher un organisateur..."
+    button: "Rechercher"
+  table:
+    name: "Nom / Prénom"
+    email: "Email"
+    actions: "Actions"
+    impersonate: "Incarner"
+    empty: "Aucun organisateur trouvé."
+  pagination:
+    previous: "Précédent"
+    next: "Suivant"
+  error:
+    access_denied_title: "⛔ Accès réservé aux organisateurs"
+    access_denied_subtitle: "Connecte-toi avec un compte organisateur."
+
+users_list:
+  title: "Liste des utilisateurs"
+  heading: "Utilisateurs"
+  subheading: "Liste des comptes utilisateurs enregistrés sur la plateforme"
+  total: "Total : %total%"
+  search:
+    label: "Recherche"
+    placeholder: "Rechercher…"
+    button: "Rechercher"
+    field_label: "Champ"
+    fields:
+      all: "Tout"
+      lastname: "Nom"
+      firstname: "Prénom"
+      email: "Email"
+  actions:
+    reset_password: "Réinitialiser le mot de passe"
+    confirm_reset: "Voulez-vous vraiment envoyer un email de réinitialisation à cet utilisateur ?"
+    impersonate: "Incarner"
+    promote: "Rendre Organisateur"
+    confirm_promote: "Rendre cet utilisateur organisateur ?"
+  flash:
+    role_change_error: "Une erreur est survenue lors du changement de rôle."
+  empty:
+    title: "Aucun utilisateur"
+    message: "La liste est vide pour le moment."
+  pagination:
+    previous: "Précédent"
+    next: "Suivant"
+  error:
+    access_denied_title: "⛔ Accès réservé aux organisateurs"
+    access_denied_subtitle: "Connecte-toi avec un compte organisateur."
+ranking:
+  title: "Classement"
+  heading: "Classement"
+  subheading: "Podium + tableau des équipes"
+  competition_id: "Compétition #%id%"
+  podium:
+    title: "Podium"
+    subtitle: "Top 3"
+    silver: "Argent"
+    champion: "Champion"
+    bronze: "Bronze"
+    no_rank: "Pas de #%rank%"
+  table:
+    title: "Classement"
+    subtitle: "Points moyens / matchs joués"
+    rank: "Rang"
+    team: "Équipe"
+    points: "Points"
+    matches: "Matchs"
+    empty: "Aucun classement disponible."
+  empty:
+    title: "Aucun classement disponible"
+    subtitle: "Joue des matchs pour remplir le podium."
+match_comment:
+  title: "Commentaire des matchs"
+  heading: "Modifier les commentaires de match"
+  empty:
+    title: "Aucun match pour le moment"
+    subtitle: "Valide les equipes et genèrent les matchs pour les voirs ici"
+  card:
+    match_label: "Match"
+    vs: "VS"
+    team_green: "Équipe verte"
+    team_blue: "Équipe Bleu"
+    comment_title: "Commentaire du match"
+    no_comment: "Aucun commentaire pour le moment."
+  button:
+    add: "Ajouter un commentaire"
+    edit: "Modifier le commentaire"
+  modal:
+    title: "Commentaire du match"
+    label: "Ton commentaire"
+    placeholder: "Ex : Match serré, belle défense…"
+    tip: "Astuce : reste court (limite actuelle 32)."
+    clear: "Effacer"
+    cancel: "Annuler"
+    save: "Enregistrer"
+  error:
+    access_denied_title: "⛔ Accès réservé aux organisateurs"
+    access_denied_subtitle: "Connecte-toi avec un compte organisateur."
+
+schedule_management:
+  title: "Gestion des horaires"
+  heading: "Gestion des créneaux"
+  subheading: "Génère et ajuste rapidement les horaires des matchs."
+  competition_id: "Compétition #%id%"
+  auto_gen:
+    title: "Génération automatique"
+    subtitle: "Durée + plage horaire"
+    button:
+      generate: "Générer"
+    label:
+      start_time: "Heure début"
+      end_time: "Heure fin"
+      duration: "Durée (min)"
+  search:
+    title: "Recherche"
+    placeholder: "Rechercher une équipe, un #id..."
+    only_missing: "Afficher uniquement “sans horaire”"
+    reset: "Réinitialiser"
+  table:
+    title: "Matchs (équipes validées uniquement)"
+    subtitle: "Scroll + recherche pour gérer une grande liste."
+    mode_save_all: "Horaires générés : mode “sauvegarder tout”"
+    vs: "vs"
+    adjust_tip: "Ajuste l’horaire directement ici"
+    col:
+      match: "Match"
+      id: "ID"
+      schedule: "Horaire"
+      action: "Action"
+    button:
+      save: "Enregistrer"
+      save_all: "Sauvegarder tous les horaires générés"
+    empty:
+      title: "Aucun match affichable"
+      subtitle: "Il n’y a aucun match avec des équipes validées (bleue & Vert)."
+  error:
+    access_denied_title: "⛔ Accès réservé aux organisateurs"
+    access_denied_subtitle: "Connecte-toi avec un compte organisateur."
+
+matches_list:
+  title: "Matchs"
+  heading: "Matchs"
+  subheading: "Liste des rencontres"
+  competition_id: "Compétition #%id%"
+  flash:
+    success: "Succès"
+    error: "Erreur"
+  orga_menu:
+    scores:
+      title: "Scores"
+      subtitle: "Modifier les scores"
+    comments:
+      title: "Commentaires"
+      subtitle: "Modifier les commentaires"
+    schedule:
+      title: "Créneaux"
+      subtitle: "Modifier les créneaux"
+    generation:
+      title: "Génération"
+      subtitle: "Créer les matchs automatiquement"
+    exportICAL:
+      title: "Exporter le calendrier"
+      subtitle: "Exporter le planning (ICAL)"
+    exportJSON:
+      title: "Exporter les rencontres"
+      subtitle: "Exporter les rencontres (JSON)"
+    bracket:
+      title: "Profondeur de la finale"
+      subtitle: "Gérer les paramètres de la finale"
+    projection:
+      title: "Projection"
+    ranking:
+      leaderboard: "Classement"
+  quick_action:
+    finish_all_label: "Action rapide : terminer tous les matchs affichés"
+    finish_all_button: "Tout terminer"
+  card_list:
+    title: "Rencontres"
+    subtitle: "Seuls les matchs avec équipes validées sont affichés."
+    empty: "Aucun match affichable"
+  card:
+    forfeit_badge: "FORFAIT"
+    team_forfeit: "Équipe forfait"
+    team_green: "Équipe Verte"
+    team_blue: "Équipe Bleue"
+    vs: "VS"
+    score_label: "Score"
+    schedule_label: "Créneau"
+    pitch_label: "Terrain"
+    comment_label: "Commentaire"
+    no_comment: "Aucun commentaire"
+    actions:
+      green_forfeit: "Forfait équipe Verte"
+      green_forfeit_applied: "Forfait Vert appliqué"
+      blue_forfeit: "Forfait équipe Bleue"
+      blue_forfeit_applied: "Forfait Bleu appliqué"
+      finish: "Terminer"
+      delete: "Supprimer"
+  bracket:
+    show_button: "Afficher l'arbre final"
+tournament_params:
+  title: "Bracket"
+  heading: "Parametres du tournois %name%"
+  team_count: "Votre tournois comporte actuellement %count% equipes"
+  label:
+    format: "Format du tournoi"
+  format:
+    semi_final: "Demi-finales (4 équipes)"
+    quarter_final: "Quarts de finale (8 équipes)"
+    round_of_16: "Huitièmes de finale (16 équipes)"
+    round_of_32: "Seizièmes de finale (32 équipes)"
+  finale:
+    with_bronze: "Avec petite finale"
+    without_bronze: "Sans petite finale"
+  button:
+    save: "Enregistrer"
+
+match_scores:
+  title: "Scores des matchs"
+  heading: "Modifier les scores"
+  total: "Total : %count%"
+  table:
+    title: "Liste des matchs"
+    subtitle: "Modifie plusieurs scores puis clique sur “Enregistrer tous les scores”."
+    col:
+      green_team: "Équipe verte"
+      blue_team: "Équipe bleue"
+      score: "Score"
+  button:
+    save_all: "💾 Enregistrer tous les scores"
+  empty:
+    title: "Aucun match modifiable"
+    subtitle: "Seuls les matchs avec équipes validées (statusA=1 & statusB=1) apparaissent ici."
+  error:
+    access_denied_title: "⛔ Accès réservé aux organisateurs"
+    access_denied_subtitle: "Connecte-toi avec un compte organisateur pour modifier les scores."
+
+profile:
+  title: "Profil"
+  heading: "Profil"
+  subheading: "Gère tes informations et ta sécurité."
+  card:
+    status_label: "Statut"
+    connected: "Connecté"
+  advice:
+    title: "Conseil"
+    content: "Utilise un mot de passe unique et change-le régulièrement."
+  email_form:
+    title: "Changer l’email"
+    subtitle: "Mets à jour ton adresse, puis valide."
+    label: "Nouvelle adresse e-mail"
+    placeholder: "exemple@email.com"
+    privacy: "On ne partagera jamais ton email."
+  password_form:
+    title: "Changer le mot de passe"
+    subtitle: "Pour ta sécurité, utilise au moins 6 caractères."
+    label_current: "Mot de passe actuel"
+    label_new: "Nouveau mot de passe"
+    tip: "Astuce : évite le nom/prénom."
+  button:
+    save: "Enregistrer"
+    update: "Mettre à jour"
+  flash:
+    email_success: "Email modifié avec succès"
+    password_success: "✅ Mot de passe modifié avec succès"
+
+reset_password:
+  check_email:
+    title: "Email de réinitialisation envoyé"
+    message: "Si un compte correspondant à votre adresse e-mail existe, un message vient de vous être envoyé. Il contient un lien que vous pouvez utiliser pour réinitialiser votre mot de passe."
+  request:
+    title: "Réinitialiser le mot de passe"
+    heading: "Mot de passe oublié"
+    subheading: "Entre ton adresse email pour recevoir un lien de réinitialisation."
+    email_placeholder: "exemple@email.com"
+    button: "Envoyer l'email de récupération"
+  reset:
+    title: "Réinitialiser votre mot de passe"
+    heading: "Réinitialiser votre mot de passe"
+    button: "Réinitialiser le mot de passe"
+
+email:
+  reset_password:
+    greeting: "Bonjour %firstname% %lastname%,"
+    subject: "Votre mot de passe a été réinitialisé par %org_firstname% %org_lastname% ( %role% )"
+    temp_pass_label: "Votre mot de passe temporaire :"
+    instruction: "Veuillez le changer après votre connexion"
+
+general_error: "Une erreur est survenue"
+user_not_found: "Utilisateur non trouvé."
+temporary_password_sent: "Si votre email existe, un mot de passe temporaire vous a été envoyé."
+password_reset_email_sent: "Email de réinitialisation envoyé à %email%"
+password_reset_subject: "Réinitialisation de votre mot de passe"
+current_password_incorrect: "Mot de passe actuel incorrect"
+invalid_email: "Email invalide"
+email_updated_subject: "Email modifié"
+email_updated_text: "Ton email a bien été modifié."
+matchs_list:
+  flash:
+    no_scores: "Aucun score à enregistrer."
+    scores_updated: "%count% score(s) enregistré(s)."
+    no_match_found: "Aucun match trouvé pour cette compétition."
+    all_finished: "%count% match(s) terminé(s)."
+    error_finishing: "Impossible de terminer tous les matchs."
+    not_enough_teams: "Pas assez d'équipes pour générer des matchs."
+    generation_error: "Génération des matchs impossible."
+    not_found: "Match introuvable."
+    score_update_error: "Impossible de mettre à jour le score."
+    comment_update_error: "Impossible de mettre à jour les commentaires."
+    forfeit_error_a: "Impossible de mettre l'équipe A forfait."
+    forfeit_error_b: "Impossible de mettre l'équipe B forfait."
+    finish_error: "Impossible de terminer le match."
+    delete_error: "Impossible de supprimer le match."
+    schedule_conflict: "Impossible de sauvegarder : un autre match est déjà prévu sur ce terrain à cette heure précise."
+    schedule_duplicate_error: "Deux matchs ne peuvent pas avoir exactement la même heure."
+    params_update_error: "Impossible de modifier les paramètres du tournoi."
+    bracket_format_updated: "Format du tournoi mis à jour."
+    bracket_gen_impossible: "Génération impossible : seulement %teams% équipes acceptées pour un bracket de %bracket%."
+    bracket_not_supported: "Bracket non supporté : %bracket% équipes."
+    bracket_success: "L'arbre de la phase finale a été généré avec succès !"
+live_matches:
+  title: "Projection des matchs"
+  heading: "Matchs en Direct"
+  subheading: "Suivi de la compétition en temps réel"
+  current: "Actuellement"
+  live_label: "EN DIRECT"
+  last_results: "Derniers Résultats"
+  no_recent: "Aucun match terminé récemment."
+  upcoming: "À Suivre"
+  no_upcoming: "Aucun match prévu pour le moment."

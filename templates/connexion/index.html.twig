@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ 'login.title'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="min-h-screen">
+		<div class="flex min-h-screen flex-col lg:flex-row">
+
+			<div class="hidden lg:block lg:w-1/2">
+				<img src="{{ asset('images/ImageConnexion.png') }}"
+				     alt="{{ 'login.image_alt'|trans }}"
+				     class="h-full w-full object-cover"/>
+			</div>
+
+			<div class="relative w-full lg:w-1/2 h-screen lg:h-auto overflow-y-auto">
+
+				<div class="pointer-events-none absolute inset-0
+					bg-[url('{{ asset('images/stacked-waves-haikei.svg') }}')]
+					bg-cover bg-center bg-no-repeat"></div>
+
+				<div class="pointer-events-none absolute inset-0 bg-black/30"></div>
+
+				<div class="relative z-10 flex items-center justify-center
+					px-6 py-0 lg:px-10 lg:py-10 h-full">
+
+					<div class="w-full max-w-md py-8 lg:py-0">
+
+						<h1 class="mb-8 text-4xl sm:text-5xl lg:text-6xl font-semibold text-white text-center">
+							{{ 'login.title'|trans }}
+						</h1>
+
+						{% if not app.user %}
+							{% if erreur %}
+								<div id="toast-login-error" class="mb-6 flex items-center w-full p-4 text-black bg-white/40 border border-black/20 rounded-lg shadow" role="alert">
+									<div class="ms-3 text-sm font-normal">
+										{{ 'login.error_invalid_credentials'|trans }}
+									</div>
+
+									<button type="button" class="ms-auto flex items-center justify-center text-black/80 hover:text-black bg-transparent hover:bg-white/40 rounded h-8 w-8 focus:ring-4 focus:ring-white/40 focus:outline-none" data-dismiss-target="#toast-login-error" aria-label="Close">
+										<span class="sr-only">Close</span>
+										<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M18 18 6 6"/>
+										</svg>
+									</button>
+								</div>
+							{% endif %}
+
+							<form method="post" class="space-y-6">
+
+								<div class="relative z-0 w-full group">
+									<input type="email" name="email" id="login_email" required placeholder=" "
+									       class="block py-2.5 px-0 w-full text-sm text-black bg-transparent
+									       border-0 border-b-2 border-black/30 appearance-none
+									       focus:outline-none focus:ring-0 focus:border-[#07b98e] peer"/>
+
+									<label for="login_email" class="absolute text-sm text-black/70 duration-300 transform
+										-translate-y-6 scale-75 top-3 -z-10 origin-[0]
+										peer-focus:text-[#07b98e]
+										peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+										peer-focus:scale-75 peer-focus:-translate-y-6">
+										{{ 'login.email'|trans }}
+									</label>
+								</div>
+
+								<div class="relative z-0 w-full group">
+									<input type="password" name="password" id="login_password" required placeholder=" "
+									       class="block py-2.5 px-0 w-full text-sm text-black bg-transparent
+									       border-0 border-b-2 border-black/30 appearance-none
+									       focus:outline-none focus:ring-0 focus:border-[#07b98e] peer pr-10"/>
+
+									<label for="login_password" class="absolute text-sm text-black/70 duration-300 transform
+										-translate-y-6 scale-75 top-3 -z-10 origin-[0]
+										peer-focus:text-[#07b98e]
+										peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+										peer-focus:scale-75 peer-focus:-translate-y-6">
+										{{ 'login.password'|trans }}
+									</label>
+
+									<button type="button" id="togglePassword"
+									        class="absolute right-0 top-1/2 -translate-y-1/2 text-black/60 hover:text-black">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path d="M2.458 12C3.732 7.943 7.523 5 12 5
+												c4.478 0 8.268 2.943 9.542 7
+												-1.274 4.057-5.064 7-9.542 7
+												-4.477 0-8.268-2.943-9.542-7z"
+												stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0"
+												stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<line id="eyeSlash" x1="3" y1="3" x2="21" y2="21"
+												stroke-width="2" stroke-linecap="round" class="hidden"/>
+										</svg>
+									</button>
+								</div>
+
+								<div class="flex items-center gap-3 text-sm text-black">
+									<input id="remember_me" type="checkbox" name="souvenir"
+									       class="w-4 h-4 text-[#07b98e] bg-transparent border-black/30 rounded focus:ring-[#07b98e]"/>
+									<label for="remember_me" class="font-medium">
+										{{ 'login.remember_me'|trans }}
+									</label>
+								</div>
+
+								<button type="submit" class="w-full text-white bg-[#07b98e] hover:bg-[#059e79]
+									focus:ring-4 focus:ring-white/40 font-medium
+									rounded-xl text-sm px-4 py-3 transition focus:outline-none">
+									{{ 'login.submit'|trans }}
+								</button>
+							</form>
+
+							<br>
+
+							<div class="flex justify-center">
+								<a href="{{ path('app_requete_motdepasse_oublie') }}"
+								   class="flex items-center justify-center rounded-xl bg-[#07b98e]
+								   px-4 py-3 text-sm font-medium text-white transition hover:bg-[#059e79]">
+									{{ 'login.forgot_password'|trans }}
+								</a>
+							</div>
+
+						{% else %}
+							<p class="text-center text-white text-lg">
+								{{ 'login.already_logged'|trans }}
+							</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const input = document.getElementById('login_password');
+		const btn = document.getElementById('togglePassword');
+		const slash = document.getElementById('eyeSlash');
+
+		btn.addEventListener('click', () => {
+			const visible = input.type === 'text';
+			input.type = visible ? 'password' : 'text';
+			slash.classList.toggle('hidden', visible);
+		});
+	</script>
+{% endblock %}

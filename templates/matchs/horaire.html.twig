@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'schedule_management.title'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="min-h-screen w-screen bg-slate-50/50">
+		<div class="mx-auto max-w-6xl px-6 py-10">
+
+			<div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+				<div>
+					<h1 class="text-3xl font-bold text-slate-900">{{ 'schedule_management.heading'|trans }}</h1>
+					<p class="mt-1 text-sm text-slate-600">{{ 'schedule_management.subheading'|trans }}</p>
+				</div>
+				<div class="inline-flex items-center rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-700 ring-1 ring-black/5">
+					{{ 'schedule_management.competition_id'|trans({'%id%': competitionId}) }}
+				</div>
+			</div>
+
+			{% if is_granted('ROLE_ORGANISATEUR') %}
+
+				
+				<div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+					<div
+						class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+
+						<div class="flex-1">
+							<div class="flex items-center justify-between">
+								<h2 class="text-base font-semibold text-slate-900">{{ 'schedule_management.auto_gen.title'|trans }}</h2>
+								<span class="text-xs text-slate-500">{{ 'schedule_management.auto_gen.subtitle'|trans }}</span>
+							</div>
+
+							<form method="post" action="{{ path('app_horaire_generer', { competitionId: competitionId }) }}" class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-4">
+
+								<div class="sm:col-span-1">
+									<label class="text-xs font-semibold 
+text-slate-700">{{ 'schedule_management.auto_gen.label.start_time'|trans }}</label>
+									<input type="time" name="heureDebut" required class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none
+																		                         focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15">
+								</div>
+
+								<div class="sm:col-span-1">
+									<label class="text-xs font-semibold text-slate-700">{{ 'schedule_management.auto_gen.label.end_time'|trans }}</label>
+									<input type="time" name="heureFin" required class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none
+																		                         focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15">
+								</div>
+
+								<div class="sm:col-span-1">
+									<label class="text-xs font-semibold text-slate-700">{{ 'schedule_management.auto_gen.label.duration'|trans }}</label>
+									<input type="number" name="duree" min="1" value="45" required class="mt-2 
+w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none
+																		                         focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15">
+								</div>
+
+								<div class="sm:col-span-1 flex items-end">
+									<button type="submit" class="w-full rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white
+																						                         hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition">
+										{{ 'schedule_management.auto_gen.button.generate'|trans }}
+									</button>
+								</div>
+							</form>
+						</div>
+
+						
+						<div class="w-full lg:max-w-sm">
+							<h3 class="text-base font-semibold text-slate-900">{{ 'schedule_management.search.title'|trans }}</h3>
+
+							<div class="mt-4 grid grid-cols-1 gap-3">
+								<div class="relative">
+									<span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+										<svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
+width="24" height="24" fill="none" viewbox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+										</svg>
+									</span>
+									<input id="matchSearch" type="text" placeholder="{{ 'schedule_management.search.placeholder'|trans }}" class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-3 text-sm text-slate-900 outline-none
+																		                         focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15">
+								</div>
+
+								<label class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
+									<input id="onlyMissing" type="checkbox" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-600/20">
+									{{ 'schedule_management.search.only_missing'|trans }}
+								</label>
+
+								<button id="resetFilters" type="button" class="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-200 
+transition">
+									{{ 'schedule_management.search.reset'|trans }}
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div class="mt-8 rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
+
+					<div class="flex items-center justify-between gap-3 border-b border-slate-100 px-6 py-4">
+						<div>
+							<h2 class="text-base font-semibold text-slate-900">{{ 'schedule_management.table.title'|trans }}</h2>
+							<p class="text-xs text-slate-500">{{ 'schedule_management.table.subtitle'|trans }}</p>
+						</div>
+
+						{% if horaireGenere %}
+							<span class="inline-flex items-center rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-semibold text-emerald-800">
+								{{ 'schedule_management.table.mode_save_all'|trans }}
+							</span>
+						{% endif %}
+					</div>
+
+					{% if horaireGenere %}
+						<form method="post" action="{{ path('app_horaire_sauvegarder', { competitionId: competitionId }) }}">
+						{% endif %}
+
+						<div class="max-h-[65vh] overflow-auto">
+							<table class="min-w-full text-left text-sm">
+								<thead class="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-slate-100">
+									<tr class="text-xs font-semibold text-slate-600">
+										<th class="px-6 py-3">{{ 'schedule_management.table.col.match'|trans }}</th>
+										<th class="px-6 py-3">{{ 'schedule_management.table.col.id'|trans }}</th>
+										<th class="px-6 py-3 w-[260px]">{{ 'schedule_management.table.col.schedule'|trans }}</th>
+										{% if not horaireGenere %}
+											<th class="px-6 py-3 text-right">{{ 'schedule_management.table.col.action'|trans }}</th>
+										{% endif %}
+									</tr>
+								</thead>
+
+								<tbody class="divide-y divide-slate-100">
+
+									{% set countValid = 0 %}
+
+									{% for match in matchs %}
+										{% if match.statusA == 1 and match.statusB == 1 %}
+											{% set countValid = countValid + 1 %}
+											{% set hasHoraire = match.horaire is not empty %}
+
+											<tr class="match-row hover:bg-slate-50" data-text="{{ (match.equipeA ~ ' ' ~ match.equipeB ~ ' ' ~ match.id)|lower }}" data-missing="{{ hasHoraire ?'0' : '1' }}">
+
+												<td class="px-6 py-4">
+													<div class="font-semibold text-slate-900">
+														{{ match.equipeA }}
+														<span class="text-slate-400">{{ 'schedule_management.table.vs'|trans }}</span>
+														{{ match.equipeB }}
+													</div>
+													<div class="text-xs text-slate-500">{{ 'schedule_management.table.adjust_tip'|trans }}</div>
+												</td>
+
+												<td class="px-6 py-4 text-slate-700">#{{ match.id }}</td>
+
+												<td class="px-6 py-4">
+													{% if horaireGenere and match.horaireGenere %}
+														<input type="datetime-local" name="horaire_{{ match.id }}" value="{{ match.horaireGenere|date('Y-m-d\\TH:i') }}" required class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+																											              focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15"/>
+													{% else %}
+														<input type="datetime-local" name="horaire" value="{{ match.horaire ?
+														match.horaire|date('Y-m-d\\TH:i') : '' }}" required class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+																												              focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15" form="form-match-{{ match.id }}"/>
+													{% endif %}
+												</td>
+
+												{% if not horaireGenere %}
+													<td class="px-6 py-4 text-right">
+														<form id="form-match-{{ match.id }}" method="post" action="{{ path('app_horaire_maj', { id: match.id }) }}">
+															<button type="submit" class="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 transition
+																															               focus:outline-none focus:ring-4 focus:ring-emerald-600/20">
+																{{ 'schedule_management.table.button.save'|trans }}
+															</button>
+														</form>
+													</td>
+												{% endif %}
+											</tr>
+										{% endif %}
+									{% endfor %}
+
+									{% if countValid == 0 %}
+										<tr>
+											<td colspan="{{ horaireGenere ? 3 : 4 }}" class="px-6 py-10 text-center">
+												<div class="mx-auto max-w-md rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+													<div class="text-sm font-semibold text-slate-900">{{ 'schedule_management.table.empty.title'|trans }}</div>
+													<div class="mt-1 text-xs text-slate-500">
+														{{ 'schedule_management.table.empty.subtitle'|trans }}
+													</div>
+												</div>
+											</td>
+										</tr>
+									{% endif %}
+
+								</tbody>
+							</table>
+						</div>
+
+						{% if horaireGenere %}
+							<div class="sticky bottom-0 border-t border-slate-100 bg-white/95 backdrop-blur px-6 py-4">
+								<button type="submit" class="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white
+																	               hover:bg-emerald-700 transition focus:outline-none focus:ring-4 focus:ring-emerald-600/20">
+									{{ 'schedule_management.table.button.save_all'|trans }}
+								</button>
+							</div>
+						</form>
+					{% endif %}
+
+				</div>
+
+				<script>
+					document.addEventListener("DOMContentLoaded", () => {
+const search = document.getElementById("matchSearch");
+const onlyMissing = document.getElementById("onlyMissing");
+const reset = document.getElementById("resetFilters");
+const rows = Array.from(document.querySelectorAll(".match-row"));
+
+function applyFilters() {
+const q = (search.value || "").trim().toLowerCase();
+const m = onlyMissing.checked;
+
+rows.forEach(row => {
+const text = row.dataset.text || "";
+const missing = row.dataset.missing === "1";
+
+const okSearch = ! q || text.includes(q);
+const okMissing = ! m || missing;
+
+row.style.display = (okSearch && okMissing) ? "" : "none";
+});
+}[search, onlyMissing].forEach(el => el.addEventListener("input", applyFilters));
+onlyMissing.addEventListener("change", applyFilters);
+
+reset.addEventListener("click", () => {
+search.value = "";
+onlyMissing.checked = false;
+applyFilters();
+});
+
+applyFilters();
+});
+</script>
+
+			{% else %}
+				<div class="mx-auto max-w-md rounded-2xl bg-white/90 p-8 text-center shadow-lg ring-1 ring-black/5">
+					<p class="text-lg font-semibold text-slate-900">{{ 'schedule_management.error.access_denied_title'|trans }}</p>
+					<p class="mt-2 text-sm text-slate-600">{{ 'schedule_management.error.access_denied_subtitle'|trans }}</p>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+{% endblock %}

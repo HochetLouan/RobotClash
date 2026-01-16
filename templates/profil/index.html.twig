@@ -1,0 +1,260 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'profile.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen w-screen bg-[#9ECFC2]">
+  <div class="min-h-screen w-screen bg-black/10">
+
+    <div class="mx-auto max-w-6xl px-6 py-12">
+
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="animate-fadeInUp">
+          <h1 class="text-3xl font-bold text-white drop-shadow">
+            {{ 'profile.heading'|trans }}
+          </h1>
+          <p class="mt-1 text-sm text-white/80">
+  
+            {{ 'profile.subheading'|trans }}
+</p>
+        </div>
+
+        <div class="animate-fadeInUp delay-100">
+          <span class="inline-flex items-center rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-slate-700 ring-1 ring-black/5">
+            {{ app.user.getRolesTexte() }}
+          </span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+
+        <section class="lg:col-span-1 animate-fadeInUp delay-150">
+  
+          <div class="rounded-2xl bg-white/85 p-6 shadow-lg ring-1 ring-black/5 backdrop-blur">
+            <div class="flex flex-col items-center text-center">
+              <div class="relative">
+                <div class="absolute inset-0 -z-10 rounded-full blur-2xl bg-emerald-600/30 animate-pulseSoft"></div>
+                <img
+    class="h-28 w-28 rounded-full bg-white/70 p-1 ring-1 ring-black/10 shadow-sm"
+                  src="https://api.dicebear.com/9.x/thumbs/png?seed={{ app.user.email|url_encode }}&size=140"
+                  alt="Avatar"
+                  loading="lazy"
+                />
+              </div>
+          <h2 class="mt-4 text-lg font-semibold text-slate-900">
+                {{ app.user.getPrenom() }} {{ app.user.getNom() }}
+              </h2>
+
+              <p class="mt-1 text-sm text-slate-600 break-all">
+                {{ app.user.getEmail() }}
+              </p>
+
+ 
+              <div class="mt-4 w-full rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <div class="text-xs font-semibold text-slate-700">{{ 'profile.card.status_label'|trans }}</div>
+                <div class="mt-1 inline-flex items-center gap-2 text-sm font-medium text-slate-800">
+                  <span class="h-2 w-2 rounded-full bg-emerald-500 animate-dot"></span>
+               
+    {{ 'profile.card.connected'|trans }}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if not is_granted('IS_IMPERSONATOR')%}
+          <div class="mt-6 rounded-2xl bg-white/75 p-5 shadow ring-1 ring-black/5 backdrop-blur animate-fadeInUp delay-200">
+            
+<div class="flex items-start gap-3">
+              <div class="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-600/15 text-emerald-800 ring-1 ring-emerald-600/20">
+                ✨
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-slate-900">{{ 'profile.advice.title'|trans }}</div>
+           
+      <p class="mt-1 text-sm text-slate-600">
+                  {{ 'profile.advice.content'|trans }}
+</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </section>
+        {% if not is_granted('IS_IMPERSONATOR')%}
+        <section class="lg:col-span-2 space-y-8">
+          <div class="rounded-2xl bg-white/85 p-6 shadow-lg ring-1 ring-black/5 backdrop-blur animate-fadeInUp delay-200">
+          <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900">{{ 'profile.email_form.title'|trans }}</h3>
+                <p class="mt-1 text-sm text-slate-600">
+                  {{ 'profile.email_form.subtitle'|trans }}
+                </p>
+              </div>
+              <div class="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-600/15 text-emerald-800 ring-1 ring-emerald-600/20">
+                @
+              </div>
+            </div>
+            <form method="post" action="{{ path('app_profil') }}" class="mt-6 space-y-4">
+            <input type="hidden" name="form_type" value="email">
+              <div>
+                <label for="nouvel_email" class="text-xs font-semibold tracking-wide text-slate-700">{{ 'profile.email_form.label'|trans }}</label>
+                <input
+                  type="email"
+                  id="nouvel_email"
+                  name="nouvel_email"
+                  required
+                  placeholder="{{ 'profile.email_form.placeholder'|trans }}"
+                  class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none
+              focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 transition" />
+              </div>
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div class="text-xs text-slate-500">       
+              {{ 'profile.email_form.privacy'|trans }}
+                </div>
+
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white
+                         hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/30 transition
+    
+                      active:scale-[0.99]"
+                >
+                  {{ 'profile.button.save'|trans }}
+                </button>
+              </div>
+            {% if succesEmail %}
+                <div class="rounded-xl bg-emerald-600/15 px-4 py-3 text-sm font-semibold text-emerald-900 ring-1 ring-emerald-600/20 animate-fadeIn">
+                   {{ 'profile.flash.email_success'|trans }}
+                </div>
+              {% endif %}
+         {% if erreurEmail %}
+                <div class="rounded-xl bg-red-600/15 px-4 py-3 text-sm font-semibold text-red-900 ring-1 ring-red-600/20 animate-shake">
+                   {{ erreurEmail }}
+                </div>
+              {% endif %}
+   </form>
+          </div>
+
+          <div class="rounded-2xl bg-white/85 p-6 shadow-lg ring-1 ring-black/5 backdrop-blur animate-fadeInUp delay-300">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900">{{ 'profile.password_form.title'|trans }}</h3>
+       
+          <p class="mt-1 text-sm text-slate-600">
+                  {{ 'profile.password_form.subtitle'|trans }}
+          </p>
+              </div>
+              <div class="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-600/15 text-emerald-800 ring-1 ring-emerald-600/20">
+                🔒
+              </div>
+            </div>
+            <form method="post" action="{{ path('app_profil') }}" class="mt-6 space-y-4">
+   
+            <input type="hidden" name="form_type" value="motdepasse">
+
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="mot_de_passe_actuel" class="text-xs font-semibold tracking-wide text-slate-700">{{ 'profile.password_form.label_current'|trans }}</label>
+                  <input
+        
+             type="password"
+                    id="mot_de_passe_actuel"
+                    name="mot_de_passe_actuel"
+                    required
+                    class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 
+ text-sm text-slate-900 shadow-sm outline-none
+                           focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 transition"
+                  />
+                </div>
+                <div>
+  <label for="nouveau_mot_de_passe" class="text-xs font-semibold tracking-wide text-slate-700">{{ 'profile.password_form.label_new'|trans }}</label>
+                  <input
+                    type="password"
+                    id="nouveau_mot_de_passe"
+                    name="nouveau_mot_de_passe"
+                    required
+                    minlength="6"
+                    class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none
+                          focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 transition"/>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div class="text-xs text-slate-500">
+                  {{ 'profile.password_form.tip'|trans }}
+              </div>
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white
+                         hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/30 transition
+                         active:scale-[0.99]">
+                  {{ 'profile.button.update'|trans }}
+                </button>
+              </div>
+          {% if succesMdp %}
+                <div class="rounded-xl bg-emerald-600/15 px-4 py-3 text-sm font-semibold text-emerald-900 ring-1 ring-emerald-600/20 animate-fadeIn">
+                  {{ 'profile.flash.password_success'|trans }}
+                </div>
+              {% endif %}
+         {% if erreurMdp %}
+                <div class="rounded-xl bg-red-600/15 px-4 py-3 text-sm font-semibold text-red-900 ring-1 ring-red-600/20 animate-shake">
+                  ⛔ {{ erreurMdp }}
+                </div>
+              {% endif %}
+   </form>
+          </div>
+        </section>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .animate-fadeInUp { animation: fadeInUp .55s ease both;
+ }
+  .animate-fadeIn { animation: fadeIn .35s ease both; }
+  .animate-shake { animation: shake .35s ease both;
+ }
+  .delay-100 { animation-delay: .10s; }
+  .delay-150 { animation-delay: .15s; }
+  .delay-200 { animation-delay: .20s;
+ }
+  .delay-300 { animation-delay: .30s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px);
+ }
+    to   { opacity: 1; transform: translateY(0);
+ }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(.99);
+ }
+    to   { opacity: 1; transform: scale(1);
+ }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0);
+ }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px);
+ }
+    75% { transform: translateX(-3px); }
+  }
+  @keyframes pulseSoft {
+    0%,100% { transform: scale(1);
+ opacity: .55; }
+    50% { transform: scale(1.05); opacity: .8;
+ }
+  }
+  .animate-pulseSoft { animation: pulseSoft 2.2s ease-in-out infinite;
+ }
+
+  @keyframes dot {
+    0%, 100% { transform: scale(1); opacity: .8;
+ }
+    50% { transform: scale(1.25); opacity: 1;
+ }
+  }
+  .animate-dot { animation: dot 1.2s ease-in-out infinite; }
+</style>
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'registration_management.title'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="min-h-screen w-screen bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('/images/FondGestionEtat.svg') }}');">
+		<div class="min-h-screen w-screen bg-black/15">
+
+			<form action="{{ path('app_competition_enregistrer_statut_inscription_equipe') }}" method="post">
+				<input type="hidden" name="etat" value="{{ etat|default('all') }}">
+				<div class="min-h-screen w-full px-6 py-12">
+					<div class="mx-auto w-full max-w-5xl">
+
+						<div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+							<div>
+								<h1 class="text-3xl sm:text-4xl font-bold text-white">
+									{{ 'registration_management.heading'|trans }}
+								</h1>
+								<p class="mt-2 text-sm text-white/80">
+									{{ 'registration_management.subheading'|trans }}
+								</p>
+							</div>
+
+							<div class="flex items-center gap-2">
+								<span class="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/10">
+									{{ equipes|length }}
+									{{ 'registration_management.request_count'|trans }}
+								</span>
+								<span class="rounded-full bg-emerald-600/20 px-3 py-1 text-xs font-semibold text-white ring-1 ring-emerald-600/20">
+									{{ 'registration_management.role_organizer'|trans }}
+								</span>
+							</div>
+						</div>
+
+						{% set etat = etat|default('all') %}
+						<div class="mb-6 flex flex-wrap items-center gap-2">
+							<a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: competition.id, etat: 'all' })) }}"
+								class="rounded-full px-4 py-2 text-xs font-semibold
+										{{ etat == 'all' ? 'bg-white/25 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+								{{ 'registration_management.filter.all'|trans }}
+							</a>
+
+							<a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: competition.id, etat: 'pending' })) }}"
+								class="rounded-full px-4 py-2 text-xs font-semibold
+										{{ etat == 'pending' ? 'bg-yellow-500 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+								{{ 'registration_management.filter.pending'|trans }}
+							</a>
+
+							<a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: competition.id, etat: 'accepted' })) }}"
+								class="rounded-full px-4 py-2 text-xs font-semibold
+										{{ etat == 'accepted' ? 'bg-green-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+								{{ 'registration_management.filter.accepted'|trans }}
+							</a>
+
+							<a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: competition.id, etat: 'refused' })) }}"
+								class="rounded-full px-4 py-2 text-xs font-semibold
+										{{ etat == 'refused' ? 'bg-red-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+								{{ 'registration_management.filter.refused'|trans }}
+							</a>
+						</div>
+
+						<div class="rounded-2xl bg-[#9ECFC2]/90 backdrop-blur-xl shadow-2xl ring-1 ring-black/10">
+							<div class="p-6 sm:p-8">
+
+								{% if equipes is not empty %}
+
+									<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+										{% for equipe in equipes %}
+
+											{% set statutLabel = 'registration_management.status.pending'|trans %}
+											{% set statutClasses = 'bg-amber-500/15 text-amber-900 ring-1 ring-amber-500/20' %}
+
+											{% if equipe.seqId == 1 %}
+												{% set statutLabel = 'registration_management.status.accepted'|trans %}
+												{% set statutClasses = 'bg-emerald-600/15 text-emerald-900 ring-1 ring-emerald-600/20' %}
+											{% elseif equipe.seqId == 3 %}
+												{% set statutLabel = 'registration_management.status.refused'|trans %}
+												{% set statutClasses = 'bg-red-500/15 text-red-900 ring-1 ring-red-500/20' %}
+											{% endif %}
+
+											<div class=" 
+ carte  rounded-2xl bg-white/90 p-5 shadow-lg ring-1 ring-black/5 opacity-0 translate-y-12
+													            transition-transform transition-opacity
+													            duration-500 ease-out">
+
+												<div class="flex items-start justify-between gap-4">
+													<img class="w-16 h-16 rounded-xl bg-white/80 p-1" src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{  equipe.nom  }}" alt="Avatar de {{  equipe.nom }}" loading="lazy"/>
+													<div>
+														<div class="text-lg font-bold text-slate-900">
+															{{ equipe.nom }}
+														</div>
+														<div class="mt-1 text-xs text-slate-500">
+															{{ 'registration_management.team_id'|trans }} :
+															{{ equipe.id }}
+														</div>
+													</div>
+
+													{% if equipe.seqId == 1 %}
+														<span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ statutClasses }}">
+															<svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
+																<path stroke="currentColor" 
+ stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+															</svg>
+															{{ statutLabel }}
+														</span>
+													{% endif %}
+
+													{% if equipe.seqId == 3 %}
+														<span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ statutClasses }}">
+															<svg class="w-6 h-6 mr-2  text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
+																<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+															</svg>
+															{{ statutLabel }}
+														</span>
+													{% endif %}
+
+													{% if equipe.seqId == 2 or equipe.seqId is same as(null) %}
+														<span class="inline-flex  items-center rounded-full px-3 py-1 text-xs font-semibold {{ statutClasses }}">
+															<svg class="w-6 h-6 mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+																<path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 
+ 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+															</svg>
+
+															{{ statutLabel }}
+														</span>
+
+													{% endif %}
+
+												</div>
+
+												<div class="mt-4 space-y-2">
+													<div class="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200">
+														<div class="text-xs font-semibold text-slate-700">{{ 'registration_management.label.establishment'|trans }}</div>
+														<div class="text-sm text-slate-700">{{ equipe.etablissement ?: '-' }}</div>
+													</div>
+														<div class="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200">
+															<div class="text-xs font-semibold text-slate-700">
+																{{ 'registration_management.label.members'|trans }}
+															</div>
+															<div class="rounded-xl bg-gray-50 px-4 py-3 border text-sm font-semibold">
+                                                            {% set membres = equipe.membresArray %}
+																<ul>
+																	{% for membre in membres %}
+																		<li>
+																			{{ membre.prenom }} {{ membre.nom }} ({{ membre.email }})
+																		</li>
+																	{% endfor %}
+																</ul>
+															</div>
+														</div>
+												</div>
+												<div class="mt-4">
+													<label class="block text-xs font-semibold tracking-wide text-slate-700">
+														{{ 'registration_management.label.status'|trans }}
+													</label>
+
+													<select name="statut[{{ equipe.id }}]" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm
+																																																																											                    
+                    focus:outline-none focus:ring-4 focus:ring-emerald-600/15 focus:border-emerald-600">
+														<option value="1" {{ equipe.seqId == 1 ? 'selected' : '' }}>{{ 'registration_management.status.accepted'|trans }}</option>
+														<option value="2" {{ equipe.seqId == 2 ? 'selected' : '' }}>{{ 'registration_management.status.pending'|trans }}</option>
+														<option value="3" {{ equipe.seqId == 3 ? 'selected' : '' }}>{{ 'registration_management.status.refused'|trans }}</option>
+													</select>
+
+													<p class="mt-2 text-xs text-slate-500">
+														{{ 'registration_management.validation_tip'|trans }}
+													</p>
+												</div>
+											</div>
+
+										{% endfor %}
+									</div>
+
+									<div class="sticky bottom-4 mt-8">
+										<div class="rounded-2xl bg-white/80 backdrop-blur p-4 shadow-lg ring-1 ring-black/5">
+											<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+												<div class="text-sm text-slate-700">
+													{{ 'registration_management.save_reminder'|trans }}
+												</div>
+
+												<button type="submit" class="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white
+																																																																						                                     hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-white/40 transition">
+													{{ 'registration_management.submit'|trans }}
+												</button>
+											</div>
+										</div>
+									</div>
+
+								{% else %}
+
+									<div class="rounded-2xl bg-white/90 p-10 text-center shadow-lg ring-1 ring-black/5">
+										<div class="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-emerald-600/15 text-emerald-900 ring-1 ring-emerald-600/20">
+											✓
+										</div>
+										<h2 class="text-lg font-semibold text-slate-900">
+											{{ 'registration_management.empty.title'|trans }}
+										</h2>
+										<p class="mt-2 text-sm text-slate-600">
+											{{ 'registration_management.empty.subtitle'|trans }}
+										</p>
+									</div>
+
+								{% endif %}
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	 <script>
+	const observateur = new IntersectionObserver(
+	  (entries) => {
+	    entries.forEach((entry) => {
+	      if (entry.isIntersecting) {
+	       entry.target.style.transform = "translateY(0)";
+			entry.target.style.opacity = "1";
+	      } 
+	    });
+	  },
+	  {
+	    threshold: 0.7, 
+	  }
+	);
+ document.querySelectorAll(".carte").forEach((el, i) => {
+	  el.style.transitionDelay = `${i * 150}ms`;
+	  observateur.observe(el);
+	});
+	</script>
+{% endblock %}

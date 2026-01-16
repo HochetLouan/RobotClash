@@ -1,0 +1,8 @@
+<h1>{{ 'email.reset_password.greeting'|trans({'%firstname%': user.getPrenom(), '%lastname%': user.getNom()}) }}</h1>
+<h3>{{ 'email.reset_password.subject'|trans({'%org_firstname%': organisateur.getPrenom(), '%org_lastname%': organisateur.getNom(), '%role%': organisateur.getRolesTexte()}) }}</h3>
+<hr>
+<p>{{ 'email.reset_password.temp_pass_label'|trans }}</p>
+
+<h2><strong>{{ temporaryPassword }}</strong></h2>
+
+<p>{{ 'email.reset_password.instruction'|trans }}</p>

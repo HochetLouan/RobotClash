@@ -1,0 +1,618 @@
+home:
+  title: "Robot Clash"
+  subtitle: "Organiseer en volg robotvoetbalwedstrijden met gemak."
+  login: "Inloggen"
+  view_tournaments: "Bekijk beschikbare toernooien"
+
+login:
+  title: "Inloggen"
+  image_alt: "robot afbeelding voor inloggen"
+  error_invalid_credentials: "Ongeldig e-mailadres of wachtwoord"
+  email: "E-mailadres"
+  password: "Wachtwoord"
+  remember_me: "Onthoud mij"
+  submit: "Inloggen"
+  forgot_password: "Wachtwoord vergeten?"
+  already_logged: "⛔ U bent al ingelogd!"
+
+nav:
+  main:
+    home: "Home"
+    stats: "Wedstrijden / Statistieken"
+    competitions: "Bekijk competities"
+  actions:
+    participate: "Deelnemen"
+    manage: "Beheren"
+    login_register: "Inloggen / Registreren"
+    login: "Inloggen"
+    register: "Registreren"
+    logout: "Uitloggen"
+    profile: "Profiel"
+    back_to_account: "Terug naar mijn account"
+  user:
+    my_teams: "Mijn teams"
+    my_competitions: "Mijn competities"
+    role_user: "Gebruiker"
+    role_organizer: "Organisator"
+  create:
+    create_team: "Team aanmaken"
+    create_competition: "Competitie aanmaken"
+    view_users: "Bekijk gebruikers"
+    view_organizers: "Bekijk organisatoren"
+  language:
+    title: "Taal"
+    subtitle: "Kies vertaling"
+    french: "Frans"
+    english: "Engels"
+    spanish: "Spaans"
+    japanese: "Japans"
+    dutch: "Nederlands"
+    error_unsupported: "Niet-ondersteunde taal"
+  mobile:
+    explore_title: "Wedstrijd / Statistiek"
+    explore_subtitle: "Ontdek teams en wedstrijden"
+    participate_subtitle: "Maak een team of toernooi aan"
+    manage_subtitle: "Beheer een team of toernooi"
+    account_subtitle: "Toegang tot uw account"
+  accessibility:
+    open_menu: "Menu openen"
+    open_user_menu: "Gebruikersmenu openen"
+  misc:
+    arrow: "→"
+
+competition:
+  create_title: "Competitie aanmaken"
+  create_new: "Nieuwe competitie aanmaken"
+  fill_info: "Vul de belangrijkste informatie in en bevestig de aanmaak."
+  details_create: "Competitiedetails"
+  required_fields: "Gemarkeerde velden zijn verplicht."
+  tip_date: "Tip: controleer of de einddatum ≥ de begindatum is."
+  edit_title: "Competitie bewerken"
+  edit_heading: "Competitie bewerken"
+  edit_subheading: "Werk de info bij en bevestig."
+  organizer: "Organisator"
+  details_edit: "Details"
+  details: "Details van de competitie"
+  name: "Naam"
+  name_placeholder: "Naam van de competitie"
+  description: "Beschrijving"
+  description_placeholder: "Een korte en nuttige beschrijving..."
+  location: "Locatie"
+  location_placeholder: "Bijv: Sporthal A"
+  nb_terrains: "Aantal velden"
+  start_date: "Startdatum"
+  end_date: "Einddatum"
+  access_denied: "⛔ Toegang voorbehouden aan organisatoren"
+  organizer_only: "Log in met een organisatoraccount."
+  error:
+    not_found: "Competitie niet gevonden."
+    team_not_found: "Team niet gevonden."
+    save_failed: "Opslaan mislukt: competitienaam al in gebruik of datums zijn onjuist"
+  flash:
+    created: "De competitie is succesvol aangemaakt!"
+    error_create: "Kan competitie niet aanmaken (naam al bezet of ongeldige gegevens)."
+    status_updated: "Wijzigingen succesvol opgeslagen."
+    error_status: "Fout bij het bijwerken van gegevens of ongeldig datumformaat."
+    deleted: "Competitie definitief verwijderd."
+    error_delete: "Kan competitie niet verwijderen."
+
+flash:
+  error: "Er is een technische fout opgetreden."
+  success: "Succes:"
+
+button:
+  back: "← Terug"
+  create_competition: "Competitie aanmaken"
+  save_changes: "Wijzigingen bevestigen"
+
+competition_list:
+  title: "Competities"
+  heading: "Competities"
+  subheading: "Lijst van competities"
+  total: "Totaal: %{total}"
+  search:
+    placeholder: "Zoeken…"
+    button: "Zoeken"
+  status:
+    ongoing: "Bezig"
+    upcoming: "Komend"
+    finished: "Afgelopen"
+  cards:
+    location: "Locatie"
+    date: "Datum"
+    teams: 
+      title: "Bekijk teams"
+      subtitle: "Ingeschreven teams"
+      button: "Doorgaan"
+    matches:
+      title: "Wedstrijden"
+      subtitle: "Bekijk lijst"
+      button: "Kijken"
+    registration:
+      title: "Inschrijving"
+      subtitle: "Team toevoegen"
+      continue: "Doorgaan"
+      login: "Log in"
+    manage_teams:
+      title: "Teams valideren"
+      continue: "Doorgaan"
+    description: "Beschrijving"
+    edit_competition: "Competitie bewerken"
+    delete_competition: "Competitie verwijderen"
+  modal:
+    delete:
+      title: "Competitie verwijderen"
+      warning: "Deze actie is definitief."
+      confirm: "Ja, verwijderen"
+      cancel: "Annuleren"
+      tip: "Tip: druk op ESC om te sluiten"
+      message: "Weet u zeker dat u deze competitie wilt verwijderen?"
+      message_detail: "Alle gerelateerde elementen kunnen ontoegankelijk worden."
+    members:
+      title: "Ingeschreven teams"
+      close: "Sluiten"
+      no_teams: "Geen teams ingeschreven."
+      send_email: "Stuur een e-mail naar het team"
+  empty:
+    title: "Geen competities"
+    message: "Kom later terug of maak er een aan."
+  pagination:
+    previous: "Vorige"
+    next: "Volgende"
+  associated_competition: "Gekoppelde competitie"
+
+auth:
+  register:
+    title: "Registratie"
+    heading: "Registratie"
+    firstname: "Voornaam"
+    lastname: "Achternaam"
+    email: "E-mailadres"
+    password: "Wachtwoord"
+    submit: "Registreren"
+    already_logged: "⛔ U heeft al een account en bent ingelogd!"
+    error_email_taken: "Kan niet registreren: e-mailadres is al in gebruik."
+
+registration_management:
+  title: "Teams beheren"
+  heading: "Teams beheren"
+  subheading: "Accepteer, zet in de wacht of weiger inschrijvingsverzoeken."
+  request_count: "verzoek(en)"
+  role_organizer: "Organisator"
+  team_id: "Team ID"
+  validation_tip: "De badge wordt bijgewerkt na validatie."
+  save_reminder: "Inschrijvingsstatussen zijn bijgewerkt."
+  submit: "Statussen valideren"
+  label:
+    establishment: "Instelling"
+    members: "Leden"
+    status: "Status"
+  status:
+    pending: "In afwachting"
+    accepted: "Geaccepteerd"
+    refused: "Geweigerd"
+  empty:
+    title: "Geen verzoeken op dit moment"
+    subtitle: "Geen enkel team heeft een aanvraag ingediend voor deze competitie."
+  filter:
+    all: "Alle"
+    pending: "In afwachting"
+    accepted: "Geaccepteerd"
+    refused: "Geweigerd"
+
+competition_filter:
+  all: "Alle"
+  ongoing: "Bezig"
+  upcoming: "Komend"
+  finished: "Afgelopen"
+
+my_teams:
+  title: "Mijn teams"
+  heading: "Mijn teams"
+  subheading: "Bekijk de status van uw inschrijvingen en vervolg uw deelname."
+  total: "Totaal: %count%"
+  access_denied_title: "⛔ Toegang voorbehouden aan Gebruikers"
+  access_denied_subtitle: "Log in met een Gebruikersaccount."
+  label:
+    advice: "Advies"
+  button:
+    login: "Inloggen"
+    edit: "Mijn team bewerken"
+    view_competition: "Bekijk competitie"
+  status:
+    accepted: "Geaccepteerd"
+    pending: "In afwachting"
+    refused: "Geweigerd"
+  advice:
+    accepted: "Uw team is gevalideerd: u kunt de wedstrijden bekijken."
+    pending: "Uw inschrijving wordt momenteel gevalideerd door een organisator."
+    refused: "Uw inschrijving is geweigerd: controleer de informatie of neem contact op met de organisator."
+  empty:
+    title: "Geen teams gekoppeld aan uw account"
+    subtitle: "Schrijf u in voor een competitie om een team aan te maken/toe te voegen."
+
+team_registration:
+  title: "Team inschrijven"
+  heading: "Een team inschrijven"
+  label:
+    team_name: "Naam van het team"
+    establishment: "Instelling"
+  button:
+    add_members_modal: "Leden toevoegen"
+    submit: "Team inschrijven"
+  error:
+    access_denied: "⛔ Toegang voorbehouden aan gebruikers. U moet ingelogd zijn."
+    name_taken: "Deze naam is al gereserveerd voor een ander team."
+    name_taken_competition: "Kan niet bewerken: de teamnaam is al in gebruik in deze competitie."
+    not_found: "Team niet gevonden."
+  modal:
+    title: "Leden toevoegen"
+    subtitle: "Vul e-mail, voornaam, achternaam in en klik op “Lid toevoegen”."
+    close: "Sluiten"
+    list_title: "Toegevoegde leden"
+    empty_list: "Nog geen leden toegevoegd."
+    label:
+      email: "E-mailadres"
+      firstname: "Voornaam"
+      lastname: "Achternaam"
+    placeholder:
+      email: "bijv: jan.jansen@email.com"
+      firstname: "Jan"
+      lastname: "Jansen"
+    button:
+      add: "Lid toevoegen"
+      remove: "Verwijderen"
+      cancel: "Annuleren"
+      finalize: "Afronden"
+    error:
+      fill_all: "Vul alle velden voor het lid in."
+      invalid_email: "Ongeldig e-mailadres."
+      duplicate_email: "Dit e-mailadres staat al in de lijst."
+  edit:
+    title: "Team bewerken"
+    heading: "Een team bewerken"
+    submit: "Bewerken"
+  flash:
+    edit_success: "Team succesvol bewerkt!"
+
+organizers_list:
+  title: "Lijst van organisatoren"
+  heading: "Organisatoren"
+  subheading: "Lijst van organisatoraccounts geregistreerd op het platform"
+  total: "Totaal: %total%"
+  search:
+    label: "Zoeken"
+    placeholder: "Zoek een organisator..."
+    button: "Zoeken"
+  table:
+    name: "Naam / Voornaam"
+    email: "E-mailadres"
+    actions: "Acties"
+    impersonate: "Incarneren"
+    empty: "Geen organisator gevonden."
+  pagination:
+    previous: "Vorige"
+    next: "Volgende"
+  error:
+    access_denied_title: "⛔ Toegang voorbehouden aan organisatoren"
+    access_denied_subtitle: "Log in met een organisatoraccount."
+
+users_list:
+  title: "Lijst van gebruikers"
+  heading: "Gebruikers"
+  subheading: "Lijst van gebruikersaccounts geregistreerd op het platform"
+  total: "Totaal: %total%"
+  search:
+    label: "Zoeken"
+    placeholder: "Zoeken…"
+    button: "Zoeken"
+    field_label: "Veld"
+    fields:
+      all: "Alles"
+      lastname: "Naam"
+      firstname: "Voornaam"
+      email: "E-mailadres"
+  actions:
+    reset_password: "Wachtwoord herinstellen"
+    confirm_reset: "Wilt u echt een herinstel-e-mail naar deze gebruiker sturen?"
+    impersonate: "Incarneren"
+    promote: "Maak Organisator"
+    confirm_promote: "Deze gebruiker organisator maken?"
+  flash:
+    role_change_error: "Er is een fout opgetreden bij het wijzigen van de rol."
+  empty:
+    title: "Geen gebruikers"
+    message: "De lijst is momenteel leeg."
+  pagination:
+    previous: "Vorige"
+    next: "Volgende"
+  error:
+    access_denied_title: "⛔ Toegang voorbehouden aan organisatoren"
+    access_denied_subtitle: "Log in met een organisatoraccount."
+
+ranking:
+  title: "Klassement"
+  heading: "Klassement"
+  subheading: "Podium + teamtabel"
+  competition_id: "Competitie #%id%"
+  podium:
+    title: "Podium"
+    subtitle: "Top 3"
+    silver: "Zilver"
+    champion: "Kampioen"
+    bronze: "Brons"
+    no_rank: "Geen #%rank%"
+  table:
+    title: "Klassement"
+    subtitle: "Gemiddelde punten / gespeelde wedstrijden"
+    rank: "Rang"
+    team: "Team"
+    points: "Punten"
+    matches: "Wedstrijden"
+    empty: "Geen klassement beschikbaar."
+  empty:
+    title: "Geen klassement beschikbaar"
+    subtitle: "Speel wedstrijden om het podium te vullen."
+
+match_comment:
+  title: "Wedstrijdcommentaar"
+  heading: "Wedstrijdcommentaar bewerken"
+  empty:
+    title: "Geen wedstrijden voor dit moment"
+    subtitle: "Valideer teams en genereer wedstrijden om ze hier te zien"
+  card:
+    match_label: "Wedstrijd"
+    vs: "VS"
+    team_green: "Groen team"
+    team_blue: "Blauw team"
+    comment_title: "Wedstrijdcommentaar"
+    no_comment: "Nog geen commentaar."
+  button:
+    add: "Commentaar toevoegen"
+    edit: "Commentaar bewerken"
+  modal:
+    title: "Wedstrijdcommentaar"
+    label: "Uw commentaar"
+    placeholder: "Bijv: Spannende wedstrijd, goede verdediging…"
+    tip: "Tip: houd het kort (huidige limiet 32)."
+    clear: "Wissen"
+    cancel: "Annuleren"
+    save: "Opslaan"
+  error:
+    access_denied_title: "⛔ Toegang voorbehouden aan organisatoren"
+    access_denied_subtitle: "Log in met een organisatoraccount."
+
+schedule_management:
+  title: "Planning beheer"
+  heading: "Beheer van tijdsloten"
+  subheading: "Genereer en pas snel wedstrijdtijden aan."
+  competition_id: "Competitie #%id%"
+  auto_gen:
+    title: "Automatische generatie"
+    subtitle: "Duur + tijdsbestek"
+    button:
+      generate: "Genereren"
+    label:
+      start_time: "Starttijd"
+      end_time: "Eindtijd"
+      duration: "Duur (min)"
+  search:
+    title: "Zoeken"
+    placeholder: "Zoek een team, een #id..."
+    only_missing: "Toon alleen “zonder planning”"
+    reset: "Resetten"
+  table:
+    title: "Wedstrijden (alleen gevalideerde teams)"
+    subtitle: "Scroll + zoek om een grote lijst te beheren."
+    mode_save_all: "Planningen gegenereerd: “alles opslaan” modus"
+    vs: "vs"
+    adjust_tip: "Pas de tijd hier direct aan"
+    col:
+      match: "Wedstrijd"
+      id: "ID"
+      schedule: "Tijd"
+      action: "Actie"
+    button:
+      save: "Opslaan"
+      save_all: "Sla alle gegenereerde tijden op"
+    empty:
+      title: "Geen wedstrijden om weer te geven"
+      subtitle: "Er zijn geen wedstrijden met gevalideerde teams (Blauw & Groen)."
+  error:
+    access_denied_title: "⛔ Toegang voorbehouden aan organisatoren"
+    access_denied_subtitle: "Log in met een organisatoraccount."
+
+matches_list:
+  title: "Wedstrijden"
+  heading: "Wedstrijden"
+  subheading: "Lijst van ontmoetingen"
+  competition_id: "Competitie #%id%"
+  flash:
+    success: "Succes"
+    error: "Fout"
+  orga_menu:
+    scores:
+      title: "Scores"
+      subtitle: "Scores bewerken"
+    comments:
+      title: "Commentaren"
+      subtitle: "Commentaren bewerken"
+    schedule:
+      title: "Tijdsloten"
+      subtitle: "Tijdsloten bewerken"
+    generation:
+      title: "Generatie"
+      subtitle: "Wedstrijden automatisch aanmaken"
+    exportICAL:
+      title: "Exporteren kalender"
+      subtitle: "Planning exporteren (ICAL)"
+    exportJSON:
+      title: "Exporteren ontmoetingen"
+      subtitle: "Ontmoetingen exporteren (JSON)"
+    bracket:
+      title: "Bracket"
+      subtitle: "Finale instellingen beheren"
+    projection:
+      title: "Projectie"
+    ranking:
+      leaderboard: "Klassement"
+  quick_action:
+    finish_all_label: "Snelactie: beëindig alle getoonde wedstrijden"
+    finish_all_button: "Alles beëindigen"
+  card_list:
+    title: "Ontmoetingen"
+    subtitle: "Alleen wedstrijden met gevalideerde teams worden getoond."
+    empty: "Geen wedstrijden om weer te geven"
+  card:
+    forfeit_badge: "FORFAIT"
+    team_forfeit: "Team forfait"
+    team_green: "Groen Team"
+    team_blue: "Blauw Team"
+    vs: "VS"
+    score_label: "Score"
+    schedule_label: "Tijdslot"
+    pitch_label: "Veld"
+    comment_label: "Commentaar"
+    no_comment: "Geen commentaar"
+    actions:
+      green_forfeit: "Forfait Groen team"
+      green_forfeit_applied: "Forfait Groen toegepast"
+      blue_forfeit: "Forfait Blauw team"
+      blue_forfeit_applied: "Forfait Blauw toegepast"
+      finish: "Beëindigen"
+      delete: "Verwijderen"
+  bracket:
+    show_button: "Toon de eindboom"
+
+tournament_params:
+  title: "Bracket"
+  heading: "Instellingen van toernooi %name%"
+  team_count: "Uw toernooi heeft momenteel %count% teams"
+  label:
+    format: "Toernooiformat"
+  format:
+    semi_final: "Halve finales (4 teams)"
+    quarter_final: "Kwartfinales (8 teams)"
+    round_of_16: "Achtste finales (16 teams)"
+    round_of_32: "Zestiende finales (32 teams)"
+  finale:
+    with_bronze: "Met kleine finale"
+    without_bronze: "Zonder kleine finale"
+  button:
+    save: "Opslaan"
+
+match_scores:
+  title: "Wedstrijdscores"
+  heading: "Scores bewerken"
+  total: "Totaal: %count%"
+  table:
+    title: "Lijst van wedstrijden"
+    subtitle: "Bewerk meerdere scores en klik op “Alle scores opslaan”."
+    col:
+      green_team: "Groen team"
+      blue_team: "Blauw team"
+      score: "Score"
+  button:
+    save_all: "💾 Alle scores opslaan"
+  empty:
+    title: "Geen bewerkbare wedstrijden"
+    subtitle: "Alleen wedstrijden met gevalideerde teams (statusA=1 & statusB=1) verschijnen hier."
+  error:
+    access_denied_title: "⛔ Toegang voorbehouden aan organisatoren"
+    access_denied_subtitle: "Log in met een organisatoraccount om scores te bewerken."
+
+profile:
+  title: "Profiel"
+  heading: "Profiel"
+  subheading: "Beheer uw informatie en veiligheid."
+  card:
+    status_label: "Status"
+    connected: "Ingelogd"
+  advice:
+    title: "Advies"
+    content: "Gebruik een uniek wachtwoord en wijzig het regelmatig."
+  email_form:
+    title: "E-mail wijzigen"
+    subtitle: "Werk uw adres bij en bevestig."
+    label: "Nieuw e-mailadres"
+    placeholder: "voorbeeld@email.com"
+    privacy: "We zullen uw e-mail nooit delen."
+  password_form:
+    title: "Wachtwoord wijzigen"
+    subtitle: "Gebruik voor uw veiligheid minimaal 6 tekens."
+    label_current: "Huidig wachtwoord"
+    label_new: "Nieuw wachtwoord"
+    tip: "Tip: vermijd uw naam/voornaam."
+  button:
+    save: "Opslaan"
+    update: "Bijwerken"
+  flash:
+    email_success: "E-mail succesvol gewijzigd"
+    password_success: "✅ Wachtwoord succesvol gewijzigd"
+
+reset_password:
+  check_email:
+    title: "Herinstel-e-mail verzonden"
+    message: "Indien er een account bestaat voor uw e-mailadres, is er zojuist een bericht naar u verzonden. Het bevat een link die u kunt gebruiken om uw wachtwoord opnieuw in te stellen."
+  request:
+    title: "Wachtwoord herinstellen"
+    heading: "Wachtwoord vergeten"
+    subheading: "Voer uw e-mailadres in om een herinstel-link te ontvangen."
+    email_placeholder: "voorbeeld@email.com"
+    button: "Herstel-e-mail verzenden"
+  reset:
+    title: "Wachtwoord opnieuw instellen"
+    heading: "Stel uw wachtwoord opnieuw in"
+    button: "Wachtwoord herinstellen"
+
+email:
+  reset_password:
+    greeting: "Hallo %firstname% %lastname%,"
+    subject: "Uw wachtwoord is hersteld door %org_firstname% %org_lastname% ( %role% )"
+    temp_pass_label: "Uw tijdelijke wachtwoord:"
+    instruction: "Wijzig dit alstublieft na het inloggen"
+
+general_error: "Er is een fout opgetreden"
+user_not_found: "Gebruiker niet gevonden."
+temporary_password_sent: "Indien uw e-mail bestaat, is er een tijdelijk wachtwoord naar u verzonden."
+password_reset_email_sent: "Herinstel-e-mail verzonden naar %email%"
+password_reset_subject: "Wachtwoord herinstellen"
+current_password_incorrect: "Huidig wachtwoord onjuist"
+invalid_email: "Ongeldig e-mailadres"
+email_updated_subject: "E-mail gewijzigd"
+email_updated_text: "Uw e-mail is succesvol gewijzigd."
+
+matchs_list:
+  flash:
+    no_scores: "Geen scores om op te slaan."
+    scores_updated: "%count% score(s) opgeslagen."
+    no_match_found: "Geen wedstrijden gevonden voor deze competitie."
+    all_finished: "%count% wedstrijd(en) beëindigd."
+    error_finishing: "Onmogelijk om alle wedstrijden te beëindigen."
+    not_enough_teams: "Niet genoeg teams om wedstrijden te genereren."
+    generation_error: "Genereren van wedstrijden onmogelijk."
+    not_found: "Wedstrijd niet gevonden."
+    score_update_error: "Onmogelijk om de score bij te werken."
+    comment_update_error: "Onmogelijk om de commentaren bij te werken."
+    forfeit_error_a: "Onmogelijk om team A op forfait te zetten."
+    forfeit_error_b: "Onmogelijk om team B op forfait te zetten."
+    finish_error: "Onmogelijk om de wedstrijd te beëindigen."
+    delete_error: "Onmogelijk om de wedstrijd te verwijderen."
+    schedule_conflict: "Onmogelijk om op te slaan: er is al een andere wedstrijd gepland op dit veld op dit exacte tijdstip."
+    schedule_duplicate_error: "Twee wedstrijden kunnen niet precies hetzelfde tijdstip hebben."
+    params_update_error: "Onmogelijk om de toernooi-instellingen te wijzigen."
+    bracket_format_updated: "Toernooiformat bijgewerkt."
+    bracket_gen_impossible: "Genereren onmogelijk: slechts %teams% teams geaccepteerd voor een bracket van %bracket%."
+    bracket_not_supported: "Niet-ondersteund bracket-format: %bracket% teams."
+    bracket_success: "De boom van de eindfase is succesvol gegenereerd!"
+
+live_matches:
+  title: "Wedstrijdprojectie"
+  heading: "Live Wedstrijden"
+  subheading: "Volg de competitie in real-time"
+  current: "Momenteel"
+  live_label: "LIVE"
+  last_results: "Laatste Resultaten"
+  no_recent: "Geen onlangs beëindigde wedstrijden."
+  upcoming: "Volgend"
+  no_upcoming: "Geen wedstrijden gepland voor dit moment."

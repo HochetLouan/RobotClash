@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable{% endblock %}
+
+{% block body %}
+<div class="min-h-screen w-screen bg-slate-900 flex flex-col items-center justify-center p-4">
+    <div class="max-w-md w-full text-center space-y-8">
+        
+        <div class="relative">
+            <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                <span class="text-9xl font-bold text-emerald-500">404</span>
+            </div>
+            <div class="relative z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+        </div>
+
+        <div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Oups ! Perdu ?</h1>
+            <p class="mt-4 text-lg text-slate-400">
+                La page que vous cherchez n'existe pas ou a été déplacée.
+            </p>
+            {% if status_code is defined %}
+                <p class="text-xs text-slate-600 mt-2">Code erreur : {{ status_code }}</p>
+            {% endif %}
+        </div>
+
+        <div class="mt-8">
+            <a href="{{ path('app_default') }}" 
+               class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-slate-900 bg-emerald-400 hover:bg-emerald-500 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Retour aux matchs
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

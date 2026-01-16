@@ -1,0 +1,510 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'competition_list.title'|trans }}{% endblock %}
+
+{% block body %}
+	<div class="min-h-screen w-screen bg-cover bg-center bg-no-repeat bg-local" 
+	style="background-image: url('{{ asset('images/blob-scene-haikei.svg') }}');">
+
+		<div class="min-h-screen w-screen bg-black/20">
+			<div class="mx-auto max-w-6xl px-6 py-12">
+
+				<div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+					<div>
+					<h1 class="text-3xl font-bold text-white">{{ 'competition_list.heading'|trans }}</h1>
+					<p class="mt-1 text-sm text-white/80">
+						{{ 'competition_list.subheading'|trans }}
+					</p>
+					</div>
+
+					<div class="inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/15">
+					{{ 'competition_list.total'|trans({'%{total}': total}) }}
+					</div>
+				</div>
+
+				{% if not mode_associee|default(false) %}
+				{% set status = status|default('all') %}
+					<div class="mb-6 flex flex-wrap items-center gap-2">
+						<a href="{{ path('app_competition_organisateur_competition', { status: 'all', q: q, field: field, page: 1 }) }}"
+						class="rounded-full px-4 py-2 text-xs font-semibold ring-1 ring-white/15 transition
+								{{ status == 'all' ? 'bg-white/25 text-white' : 'bg-white/10 text-white/80 hover:bg-white/15' }}">
+						{{ 'competition_filter.all'|trans }}
+						</a>
+
+						<a href="{{ path('app_competition_organisateur_competition', { status: 'upcoming', q: q, field: field, page: 1 }) }}"
+						class="rounded-full px-4 py-2 text-xs font-semibold ring-1 ring-white/15 transition
+								{{ status == 'upcoming' ? 'bg-blue-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/15' }}">
+						{{ 'competition_filter.upcoming'|trans }}
+						</a>
+
+						<a href="{{ path('app_competition_organisateur_competition', { status: 'ongoing', q: q, field: field, page: 1 }) }}"
+						class="rounded-full px-4 py-2 text-xs font-semibold ring-1 ring-white/15 transition
+								{{ status == 'ongoing' ? 'bg-green-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/15' }}">
+						{{ 'competition_filter.ongoing'|trans }}
+						</a>
+
+						<a href="{{ path('app_competition_organisateur_competition', { status: 'finished', q: q, field: field, page: 1 }) }}"
+						class="rounded-full px-4 py-2 text-xs font-semibold ring-1 ring-white/15 transition
+								{{ status == 'finished' ? 'bg-red-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/15' }}">
+						{{ 'competition_filter.finished'|trans }}
+						</a>
+					</div>
+				{% endif %}
+
+				<form method="get" action="{{ path('app_competition_organisateur_competition') }}" class="max-w-2xl mx-auto mb-6">
+					<input type="hidden" name="status" value="{{ status|default('all') }}">
+					<div class="flex shadow-xs rounded-xl overflow-hidden">
+
+					<label for="q" class="sr-only">{{ 'competition_list.search.button'|trans }}</label>
+					<input
+						type="search"
+						id="q"
+						name="q"
+						value="{{ q ?? '' }}"
+						class="px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm
+							focus:ring-brand focus:border-brand block w-full placeholder:text-body"
+						placeholder="{{ 'competition_list.search.placeholder'|trans }}"
+					>
+
+					<button
+						type="submit"
+						class="inline-flex items-center text-white
+							bg-emerald-600 hover:bg-emerald-700
+							box-border border border-transparent
+							focus:ring-4 focus:ring-white/40
+							shadow-xs font-medium leading-5
+							rounded-e-base text-sm px-4 py-2.5
+							focus:outline-none transition"
+					>
+						<svg class="w-4 h-4 me-1.5" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+								d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0
+								7 7 0 0 1 14 0Z"/>
+						</svg>
+						{{ 'competition_list.search.button'|trans }}
+					</button>
+					</div>
+				</form>
+
+				<div class="grid grid-cols-1 gap-10 md:grid-cols-2">
+					{% for competition in competitions %}
+
+						<div
+							class=" carte opacity-0 rounded-2xl bg-white/90 p-6 shadow-lg ring-1 ring-black/5 backdrop-blur translate-x-10 transition-all duration-300 ease-in-out"
+							
+							>
+
+							<div class="flex items-start justify-between gap-4">
+								<div class="flex items-center gap-3">
+									<img class="w-16 h-16 rounded-xl bg-white/80 p-1"
+										src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed={{ competition.nom }}"
+										alt="Avatar de {{ competition.nom }}"
+										loading="lazy"/>
+
+									<div>
+									<div class="text-sm font-semibold tracking-wide text-slate-900">
+										{{ competition.nom|upper }}
+									</div>
+
+									<div class="mt-1 text-xs text-slate-500">
+										{% if competition.dateDebut and competition.dateFin %}
+										{{ competition.dateDebut|date('d M Y') }} - {{ competition.dateFin|date('d M Y') }}<br>
+
+										{% set today = "now"|date("Y-m-d") %}
+										{% set start = competition.dateDebut|date("Y-m-d") %}
+										{% set end = competition.dateFin|date("Y-m-d") %}
+
+										{% if today >= start and today <= end %}
+											<span class="text-green-600">{{ 'competition_list.status.ongoing'|trans }}</span>
+										{% elseif today < start %}
+											<span class="text-blue-600">{{ 'competition_list.status.upcoming'|trans }}</span>
+										{% else %}
+											<span class="text-red-500">{{ 'competition_list.status.finished'|trans }}</span>
+										{% endif %}
+										{% else %}
+										-
+										{% endif %}
+									</div>
+									</div>
+								</div>
+
+								<a href="{{ path('app_competition_classement', { competitionId: competition.id }) }}"
+									class="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600 transition">
+									<span aria-hidden="true">🏆</span>
+									Classement
+								</a>
+							</div>
+
+							<div class="my-5 h-px bg-slate-200/80"></div>
+
+							<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+								<div class="flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 ring-1 ring-slate-200">
+									<span class="grid h-9 w-9 place-items-center rounded-lg bg-emerald-500/15 text-emerald-700">
+										<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+											<path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd"/>
+										</svg>
+
+									</span>
+									<div class="text-sm">
+										<div class="text-xs font-semibold text-slate-700">{{ 'competition_list.cards.location'|trans }}</div>
+										<div class="text-slate-600">{{ competition.lieu ?: "-" }}</div>
+									</div>
+								</div>
+
+								<div class="flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 ring-1 ring-slate-200">
+									<span class="grid h-9 w-9 place-items-center rounded-lg bg-emerald-500/15 text-emerald-700">
+										<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+											<path fill-rule="evenodd" d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" clip-rule="evenodd"/>
+										</svg>
+
+									</span>
+									<div class="text-sm">
+										<div class="text-xs font-semibold text-slate-700">{{ 'competition_list.cards.date'|trans }}</div>
+										<div class="text-slate-600">
+											{% if competition.dateDebut %}
+												{{ competition.dateDebut|date('d M Y') }} - {{ competition.dateFin|date('d M Y') }}
+											{% else %}
+												-
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div
+								class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+
+								<div class="rounded-2xl bg-gradient-to-b from-emerald-500 to-emerald-600 p-4 text-white">
+									<div class="text-sm font-semibold">{{ 'competition_list.cards.teams.title'|trans }}</div>
+									<div class="text-xs text-white/80">{{ 'competition_list.cards.teams.subtitle'|trans }}</div>
+
+									<button type="button" data-modal-target="members-{{ competition.id }}" data-modal-toggle="members-{{ competition.id }}" class="mt-4 w-full rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/25">
+										{{ 'competition_list.cards.teams.button'|trans }}
+									</button>
+								</div>
+
+								<div class="rounded-2xl bg-white p-4 ring-1 ring-slate-200">
+									<div class="text-sm font-semibold text-slate-900">{{ 'competition_list.cards.matches.title'|trans }}</div>
+									<div class="text-xs text-slate-500">{{ 'competition_list.cards.matches.subtitle'|trans }}</div>
+									<a href="{{ path('app_matchs', { competitionId: competition.id }) }}" class="mt-4 inline-flex w-full justify-center rounded-xl bg-slate-100 px-3 py-2 text-xs font-semibold hover:bg-slate-200">
+										{{ 'competition_list.cards.matches.button'|trans }}
+									</a>
+								</div>
+
+								{% if not  is_granted('ROLE_ORGANISATEUR') %}
+									<div class="rounded-2xl bg-gradient-to-b from-emerald-500 to-emerald-600 p-4 text-white">
+										<div class="text-sm font-semibold">{{ 'competition_list.cards.registration.title'|trans }}</div>
+										<div class="text-xs text-white/80">{{ 'competition_list.cards.registration.subtitle'|trans }}</div>
+
+										{% if is_granted('ROLE_USER') %}
+											<a href="{{ path('app_inscription_equipe', { id: competition.id }) }}" class="mt-4 inline-flex w-full justify-center rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/25">
+												{{ 'competition_list.cards.registration.continue'|trans }}
+											</a>
+										{% endif %}
+										{% if not is_granted('ROLE_USER') and not is_granted('ROLE_ORGANISATEUR') %}
+											<a href="{{ path('app_connexion') }}" class="mt-4 inline-flex w-full justify-center rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/25">
+												{{ 'competition_list.cards.registration.login'|trans }}
+											</a>
+										{% endif %}
+									</div>
+								{% endif %}
+
+								{% if is_granted('ROLE_ORGANISATEUR') %}
+									<div class="rounded-2xl bg-gradient-to-b from-emerald-500 to-emerald-600 p-4 text-white">
+										<div class="text-sm font-semibold">{{ 'competition_list.cards.manage_teams.title'|trans }}</div>
+										<a href="{{ path('app_competition_gerer_inscription', { id: competition.id }) }}" class="mt-4 inline-flex w-full justify-center rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/25">
+											{{ 'competition_list.cards.manage_teams.continue'|trans }}
+										</a>
+									</div>
+								{% endif %}
+							</div>
+
+							<div class="mt-5 rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200">
+								<div class="text-xs font-semibold text-slate-700">{{ 'competition_list.cards.description'|trans }}</div>
+								<div class="mt-1 text-sm text-slate-600 line-clamp-3">
+									{{ competition.description }}
+								</div>
+
+								{% if is_granted('ROLE_ORGANISATEUR') %}
+									<a href="{{ path('app_competition_modifier', { id: competition.id }) }}" class="mt-3  inline-flex rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700">
+										{{ 'competition_list.cards.edit_competition'|trans }}
+									</a>
+
+									<button data-modal-target="delete-competition-modal" data-modal-toggle="delete-competition-modal" class="mt-3 ml-20 inline-flex rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700" type="button">
+										{{ 'competition_list.cards.delete_competition'|trans }}
+									</button>
+
+								{% endif %}
+							</div>
+						</div>
+
+
+						<div id="delete-competition-modal" tabindex="-1" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+
+							<div class="absolute inset-0 bg-black/40 backdrop-blur-sm" data-modal-hide="delete-competition-modal"></div>
+
+
+							<div class="relative w-full max-w-md">
+								<div class="rounded-2xl bg-white/90 p-6 shadow-2xl ring-1 ring-black/10 backdrop-blur">
+
+
+									<div class="flex items-start justify-between gap-4">
+										<div class="flex items-start gap-3">
+
+											<div class="grid h-11 w-11 place-items-center rounded-2xl bg-red-500/10 text-red-600 ring-1 ring-red-500/20">
+												<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 0 0 4.62 20h14.76a2 2 0 0 0 1.73-3.3l-7.4-12.84a2 2 0 0 0-3.42 0Z"/>
+												</svg>
+											</div>
+
+											<div>
+												<h3 class="text-lg font-semibold text-slate-900">
+													{{ 'competition_list.modal.delete.title'|trans }}
+												</h3>
+												<p class="mt-1 text-sm text-slate-600">
+													{{ 'competition_list.modal.delete.warning'|trans }}
+												</p>
+											</div>
+										</div>
+
+										<button type="button" data-modal-hide="delete-competition-modal" class="grid h-9 w-9 place-items-center rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition" aria-label="Fermer">
+											<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+											</svg>
+										</button>
+									</div>
+
+
+									<div class="mt-5 rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+										<p class="text-sm text-slate-700">
+											{{ 'competition_list.modal.delete.message'|trans }}
+										</p>
+										<p class="mt-2 text-xs text-slate-500">
+											{{ 'competition_list.modal.delete.message_detail'|trans }}
+										</p>
+									</div>
+
+
+									<div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+										<button type="button" data-modal-hide="delete-competition-modal" class="w-full sm:w-auto rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 transition">
+											{{ 'competition_list.modal.delete.cancel'|trans }}
+										</button>
+
+										<a href="{{ path('app_competition_supprimer', { id: competition.id }) }}" class="w-full sm:w-auto rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition focus:outline-none focus:ring-4 focus:ring-red-600/20">
+											{{ 'competition_list.modal.delete.confirm'|trans }}
+										</a>
+									</div>
+
+								</div>
+
+
+								<div class="mt-3 text-center text-xs text-white/70">
+									{{ 'competition_list.modal.delete.tip'|trans }}
+								</div>
+							</div>
+						</div>
+
+
+						<div id="members-{{ competition.id }}" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+
+							<div class="w-full  max-w-md p-4">
+								<div class="bg-white overflow-y-auto rounded-2xl shadow max-h-[80vh]">
+
+									<div class="flex items-center justify-between  p-4 border-b">
+										<h3 class="text-lg font-semibold">{{ 'competition_list.modal.members.title'|trans }}</h3>
+										<button data-modal-hide="members-{{ competition.id }}">✕</button>
+									</div>
+
+
+									{% set equipesForThisCompetition = [] %}
+
+									{% if equipesByCompetition is defined %}
+										{% set equipesForThisCompetition = equipesByCompetition[competition.id]|default([]) %}
+									{% elseif equipes is defined %}
+
+										{% set equipesForThisCompetition = equipes|filter(e => e.competitionId == competition.id) %}
+									{% endif %}
+
+									<div class="p-4 space-y-2">
+										{% if equipesForThisCompetition|length > 0 %}
+											{% for equipe in equipesForThisCompetition %}
+												{% if equipe.seqId == 1 %}
+													<div class="rounded-xl bg-gray-50 px-4 py-3 border text-sm font-semibold">
+														{{ equipe.nom }}
+														<img class="w-11 h-11 rounded-base rounded-full bg-white/80 p-1" src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{  equipe.nom  }}" alt="Avatar de {{  equipe.nom }}" loading="lazy"/>
+													</div>
+													{% set membres = equipe.membresArray %}
+
+													{% for membre in membres %}
+														{{ membre.prenom }} {{ membre.nom }} ({{ membre.email }})
+													{% endfor %}
+
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											<div class="text-center text-sm text-gray-500">
+												{{ 'competition_list.modal.members.no_teams'|trans }}
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="flex justify-end p-4 border-t">
+										<button data-modal-hide="members-{{ competition.id }}" class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white">
+											{{ 'competition_list.modal.members.close'|trans }}
+										</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div class="col-span-1 md:col-span-2 text-center bg-white/90 p-8 rounded-2xl shadow">
+							<h2 class="text-lg font-semibold">{{ 'competition_list.empty.title'|trans }}</h2>
+							<p class="text-sm text-gray-500 mt-2">
+								{{ 'competition_list.empty.message'|trans }}
+							</p>
+						</div>
+					{% endfor %}
+				</div>
+
+			</div>
+
+				{% if pages > 1 %}
+					<nav class="mt-8 flex items-center justify-center" aria-label="Pagination des compétitions">
+						<ul class="inline-flex mb-6 items-center gap-2 text-sm">
+
+						<li>
+							<a
+							href="{{ path('app_competition_organisateur_competition', { page: page > 1 ? page - 1 : 1, q: q, field: field, status: status }) }}"
+							class="inline-flex items-center justify-center gap-2 rounded-xl px-4 h-10 font-semibold
+									ring-1 ring-black/10 backdrop-blur
+									{{ page <= 1
+										? 'pointer-events-none opacity-40 bg-white/60 text-slate-700'
+										: 'bg-white/80 text-slate-800 hover:bg-white hover:text-slate-900' }}"
+							aria-disabled="{{ page <= 1 ? 'true' : 'false' }}"
+							>
+							<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+							</svg>
+							{{ 'competition_list.pagination.previous'|trans }}
+							</a>
+						</li>
+
+						{% set start = page - 2 %}
+						{% set end = page + 2 %}
+
+						{% if start < 1 %}
+							{% set end = end + (1 - start) %}
+							{% set start = 1 %}
+						{% endif %}
+
+						{% if end > pages %}
+							{% set start = start - (end - pages) %}
+							{% set end = pages %}
+						{% endif %}
+
+						{% if start < 1 %}{% set start = 1 %}{% endif %}
+
+						{% if start > 1 %}
+							<li>
+							<a
+								href="{{ path('app_competition_organisateur_competition', { page: 1 }) }}"
+								class="inline-flex items-center justify-center w-10 h-10 rounded-xl font-semibold
+									bg-white/70 text-slate-800 ring-1 ring-black/10 hover:bg-white"
+							>1</a>
+							</li>
+
+							{% if start > 2 %}
+							<li class="px-1 text-slate-700/70 select-none">…</li>
+							{% endif %}
+						{% endif %}
+
+						{% for p in start..end %}
+            
+                <li>
+                                <a
+                                    href="{{ path('app_competition_organisateur_competition', {
+                                         page: p,
+                                        q: q,
+                                         field: field,
+										 status: status
+                                    }) }}"
+                                    aria-current="{{ p == page ? 'page' : 'false' }}"
+                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl font-semibold ring-1 ring-black/10 transition
+                                        {{ p == page
+                                             ? 'bg-emerald-600 text-white ring-emerald-600/30 shadow-sm'
+                                            : 'bg-white/70 text-slate-800 hover:bg-white' }}"
+                                >
+                                     {{ p }}
+                                </a>
+                            </li>
+                         {% endfor %}
+
+						{% if end < pages %}
+							{% if end < pages - 1 %}
+							<li class="px-1 text-slate-700/70 select-none">…</li>
+							{% endif %}
+
+							<li>
+							<a
+								href="{{ path('app_competition_organisateur_competition', { page: pages, q: q, field: field, status: status }) }}"
+								class="inline-flex items-center justify-center w-10 h-10 rounded-xl font-semibold
+									bg-white/70 text-slate-800 ring-1 ring-black/10 hover:bg-white"
+							>{{ pages }}</a>
+							</li>
+						{% endif %}
+
+						<li>
+							<a
+							href="{{ path('app_competition_organisateur_competition', { page: page < pages ? page + 1 : pages, q: q, field: field, status: status }) }}"
+							class="inline-flex items-center justify-center gap-2 rounded-xl px-4 h-10 font-semibold
+									ring-1 ring-black/10 backdrop-blur
+									{{ page >= pages
+										? 'pointer-events-none opacity-40 bg-white/60 text-slate-700'
+										: 'bg-white/80 text-slate-800 hover:bg-white hover:text-slate-900' }}"
+							aria-disabled="{{ page >= pages ? 'true' : 'false' }}"
+							>
+							{{ 'competition_list.pagination.next'|trans }}
+							<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+							</svg>
+							</a>
+						</li>
+
+						</ul>
+					</nav>
+					{% endif %}
+		</div>
+		
+	</div>
+
+	<script>
+		const observateur = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				entry.target.classList.remove(
+				"opacity-0",
+				"-translate-x-10",
+				"translate-x-10"
+				);
+				entry.target.classList.add("opacity-100", "translate-x-0");
+			} else {
+				entry.target.classList.remove("opacity-100", "translate-x-0");
+				entry.target.classList.add("opacity-0");
+			}
+			});
+		},
+		{
+			threshold: 0.2, 
+		}
+		);
+
+		document.querySelectorAll(".carte").forEach((el) => {
+		observateur.observe(el);
+		});
+	</script>
+
+{% endblock %}

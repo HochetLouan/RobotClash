@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'my_teams.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="relative min-h-screen w-screen overflow-hidden">
+
+  <img
+    src="{{ asset('/images/mesCompetition.svg') }}"
+    alt=""
+    class="absolute inset-0 h-full w-full object-cover blur-lg scale-110"
+  />
+  <div class="absolute inset-0 bg-black/30"></div>
+
+  <div class="relative z-10 mx-auto max-w-6xl px-6 py-12">
+    <div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-white">{{ 'my_teams.heading'|trans }}</h1>
+        <p class="mt-1 text-sm text-white/80">
+       
+    {{ 'my_teams.subheading'|trans }}
+</p>
+      </div>
+
+      <div class="inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/15">
+        {{ 'my_teams.total'|trans({'%count%': equipes|length}) }}
+      </div>
+
+    </div>
+
+    {% set etat = etat|default('all') %}
+    <div class="mb-6 flex flex-wrap items-center gap-2">
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: app.user.id,etat: 'all' })) }}"
+        class="rounded-full px-4 py-2 text-xs font-semibold
+            {{ etat == 'all' ? 'bg-white/25 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+        Toutes
+      </a>
+
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: app.user.id,etat: 'pending' })) }}"
+        class="rounded-full px-4 py-2 text-xs font-semibold
+            {{ etat == 'pending' ? 'bg-yellow-500 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+        En attente
+      </a>
+
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: app.user.id,etat: 'accepted' })) }}"
+        class="rounded-full px-4 py-2 text-xs font-semibold
+            {{ etat == 'accepted' ? 'bg-green-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+        Acceptées
+      </a>
+
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({ id: app.user.id,etat: 'refused' })) }}"
+        class="rounded-full px-4 py-2 text-xs font-semibold
+            {{ etat == 'refused' ? 'bg-red-600 text-white' : 'bg-white/10 text-white/80 hover:bg-white/20' }}">
+        Refusées
+      </a>
+    </div>
+
+    {% if not is_granted('ROLE_USER') %}
+      <div class="mx-auto max-w-lg rounded-2xl bg-white/85 p-8 text-center shadow-lg ring-1 ring-black/5 backdrop-blur">
+        <p class="text-lg font-semibold text-slate-900">{{ 'my_teams.access_denied_title'|trans }}</p>
+        <p class="mt-2 text-sm text-slate-600">{{ 'my_teams.access_denied_subtitle'|trans }}</p>
+
+ 
+        <a href="{{ path('app_connexion') }}"
+           class="mt-6 inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition">
+          {{ 'my_teams.button.login'|trans }}
+        </a>
+      </div>
+    {% else %}
+
+      {% if equipes is empty %}
+        <div class="mx-auto max-w-xl rounded-2xl bg-white/85 p-8 text-center shadow-lg ring-1 ring-black/5 backdrop-blur">
+    
+       <div class="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-emerald-600/10 text-emerald-700 ring-1 ring-emerald-600/20">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+            </svg>
+          </div>
+          <p class="mt-4 text-lg font-semibold text-slate-900">{{ 'my_teams.empty.title'|trans }}</p>
+ 
+          <p class="mt-2 text-sm text-slate-600">
+            {{ 'my_teams.empty.subtitle'|trans }}
+</p>
+        </div>
+      {% else %}
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {% for equipe in equipes %}
+            {% if equipe.seqId == 1 %}
+              {% set badge = 'bg-emerald-600/15 text-emerald-900 ring-1 ring-emerald-600/20' %}
+              {% set badgeLabel 
+ = 'my_teams.status.accepted'|trans %}
+              {% set badgeIcon = 'check' %}
+              {% set cardRing = 'ring-emerald-600/20' %}
+            {% elseif equipe.seqId == 2 %}
+              {% set badge = 'bg-amber-500/15 text-amber-900 ring-1 ring-amber-500/20' %}
+              {% set badgeLabel = 'my_teams.status.pending'|trans %}
+ 
+              {% set badgeIcon = 'clock' %}
+              {% set cardRing = 'ring-amber-500/20' %}
+            {% else %}
+              {% set badge = 'bg-red-500/15 text-red-900 ring-1 ring-red-500/20' %}
+              {% set badgeLabel = 'my_teams.status.refused'|trans %}
+        
+       {% set badgeIcon = 'x' %}
+              {% set cardRing = 'ring-red-500/20' %}
+            {% endif %}
+
+            <div class="group rounded-2xl bg-white/90 p-6 shadow-lg ring-1 ring-black/5 {{ cardRing }} backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl">
+              <div class="flex items-start justify-between gap-3">
+            
+     <div class="flex items-center gap-3">
+                  <img
+                    class="h-12 w-12 rounded-2xl bg-white ring-1 ring-black/10 p-1"
+                    src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{ equipe.nom }}"
+                    alt="Avatar équipe {{ equipe.nom }}"
+   
+                  loading="lazy"
+                  />
+
+                  <div>
+                    <div class="text-base font-semibold text-slate-900">
+                      {{ equipe.nom 
+ }}
+                    </div>
+                    <div class="text-sm text-slate-600">
+                      {{ equipe.etablissement ?: '-' }}
+                    </div>
+            
+       </div>
+                </div>
+
+                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ badge }}">
+                  {% if badgeIcon == 'check' %}
+                    <svg class="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 
+ 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  {% elseif badgeIcon == 'clock' %}
+                    <svg class="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" 
+ viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+                    </svg>
+                  {% else %}
+                    <svg class="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 
+ 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  {% endif %}
+                  {{ badgeLabel }}
+      
+           </span>
+              </div>
+
+              <div class="my-5 h-px w-full bg-slate-900/10"></div>
+
+              <div class="space-y-3">
+                <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                  <div class="text-xs font-semibold text-slate-700">{{ 'my_teams.label.advice'|trans }}</div>
+ 
+                  <div class="mt-1 text-sm text-slate-600">
+                    {% if equipe.seqId == 1 %}
+                      {{ 'my_teams.advice.accepted'|trans }}
+ {% elseif equipe.seqId == 2 %}
+                      {{ 'my_teams.advice.pending'|trans }}
+ {% else %}
+                      {{ 'my_teams.advice.refused'|trans }}
+ {% endif %}
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-2 sm:flex-row">
+                 
+                    <a href="{{ path('app_equipe_modifier', { id: equipe.id }) 
+ }}"
+                       class="inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition">
+                      {{ 'my_teams.button.edit'|trans }}
+                    </a>
+
+                  
+ <a href="{{ path('app_competition_associee', { equipeId: equipe.id }) }}"
+                     class="inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-200 transition">
+                   		{{ 'my_teams.button.view_competition'|trans }}
+                  </a>
+
+                </div>
+     
+          </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

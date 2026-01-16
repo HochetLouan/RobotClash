@@ -1,0 +1,97 @@
+####################################
+# IDE & OS
+####################################
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# JetBrains (PhpStorm / WebStorm)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+####################################
+# Logs & temp
+####################################
+
+*.log
+*.cache
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+./public/*.ics
+./public/*.json
+####################################
+# Symfony
+####################################
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+####################################
+# PHPUnit
+####################################
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+####################################
+# Assets (Asset Mapper)
+####################################
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+###< symfony/asset-mapper ###
+
+####################################
+# Frontend tools
+####################################
+
+/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+####################################
+# Symfony CLI
+####################################
+
+.symfony/
+
+
+####################################
+# Python
+####################################
+
+./Python/.venv
+
+.nfs*
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+composer.phar

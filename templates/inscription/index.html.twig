@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'auth.register.title'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="min-h-screen">
+		<div class="flex min-h-screen flex-col lg:flex-row ">
+
+			<div class="hidden lg:block lg:w-1/2">
+				<img src="{{ asset('images/ImageInscription.png') }}" alt="image robot pour inscription" class="h-full w-full object-cover"/>
+			</div>
+
+			<div class="relative w-full lg:w-1/2 h-screen lg:h-auto overflow-y-auto">
+
+				<div class="pointer-events-none absolute inset-0 bg-[url('{{ asset('images/stacked-waves-haikei.svg') }}')] bg-cover bg-center bg-no-repeat"></div>
+				<div class="pointer-events-none absolute inset-0 bg-black/30"></div>
+
+				<div class="relative z-10 flex items-center justify-center px-6 py-0 lg:px-10 lg:py-10 h-full">
+
+					<div class="w-full max-w-md py-8 lg:py-0">
+
+						<h1 class="mb-8 text-4xl sm:text-5xl lg:text-6xl font-semibold text-white text-center">
+							{{ 'auth.register.heading'|trans }}
+						</h1>
+						{% if not app.user %}
+							{% for label, messages in app.flashes %}
+								{% for message in messages %}
+									<div class="alert alert-{{ label == 'danger' ? 'danger' : 'success' }} p-4 mb-4 rounded border shadow-sm">
+										<strong>{{ label == 'danger' ? 'flash.error'|trans : 'flash.success'|trans }}</strong>
+										{{ message }}
+									</div>
+								{% endfor %}
+							{% endfor %}
+							{{ form_start(FormulaireInscription, {'attr': {'class': 'mx-auto'}}) }}
+
+							<div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-6">
+								<div class="relative z-0 w-full mb-5 group">
+									{{ form_widget(FormulaireInscription.prenom, {
+              'attr': {
+                'class': 'block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-black/30 appearance-none focus:outline-none focus:ring-0 focus:border-[#07b98e] peer',
+              
+   'placeholder': ' '
+              }
+            }) }}
+									{{ form_label(FormulaireInscription.prenom, 'auth.register.firstname'|trans, {
+              'label_attr': {
+                'class': 'absolute text-sm text-black/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#07b98e] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+              }
+     
+        }) }}
+									{{ form_errors(FormulaireInscription.prenom) }}
+								</div>
+
+								<div class="relative z-0 w-full mb-5 group">
+									{{ form_widget(FormulaireInscription.nom, {
+              'attr': {
+                'class': 'block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-black/30 appearance-none focus:outline-none focus:ring-0 focus:border-[#07b98e] peer',
+                'placeholder': ' '
+              }
+     
+        }) }}
+									{{ form_label(FormulaireInscription.nom, 'auth.register.lastname'|trans, {
+              'label_attr': {
+                'class': 'absolute text-sm text-black/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#07b98e] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+              }
+            }) }}
+									{{ form_errors(FormulaireInscription.nom) }}
+								</div>
+							</div>
+
+							<div class="relative z-0 w-full mb-5 group">
+								{{ form_widget(FormulaireInscription.email, {
+      
+       'attr': {
+              'class': 'block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-black/30 appearance-none focus:outline-none focus:ring-0 focus:border-[#07b98e] peer',
+              'placeholder': ' '
+            }
+          }) }}
+								{{ form_label(FormulaireInscription.email, 'auth.register.email'|trans, {
+            'label_attr': {
+         
+      'class': 'absolute text-sm text-black/70 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-[#07b98e] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+            }
+          }) }}
+								{{ form_errors(FormulaireInscription.email) }}
+							</div>
+
+							<div class="relative z-0 w-full mb-6 group">
+								{{ form_widget(FormulaireInscription.motDePasse, {
+            'attr': {
+              'id': 'register_password',
+              'class': 'block py-2.5 px-0 w-full 
+ text-sm text-black bg-transparent
+                        border-0 border-b-2 border-black/30 appearance-none
+                        focus:outline-none focus:ring-0 focus:border-[#07b98e] peer pr-10',
+              'placeholder': ' '
+            }
+          }) }}
+
+								{{ form_label(FormulaireInscription.motDePasse, 'auth.register.password'|trans, {
+            'label_attr': {
+              'class': 'absolute text-sm text-black/70 duration-300 transform
+                        -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                        peer-focus:start-0 peer-focus:text-[#07b98e]
+              
+           peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                        peer-focus:scale-75 peer-focus:-translate-y-6'
+            }
+          }) }}
+
+								<button type="button" id="toggleRegisterPassword" class="absolute right-0 top-1/2 -translate-y-1/2 text-black/60 hover:text-black">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+										<path d="M2.458 12C3.732 7.943 7.523 5 12 5
+																																																																		                 
+      c4.478 0 8.268 2.943 9.542 7
+																																																																		                      -1.274 4.057-5.064 7-9.542 7
+																																																																		                      -4.477 0-8.268-2.943-9.542-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<line id="registerEyeSlash" x1="3" y1="3" x2="21" y2="21" stroke-width="2" stroke-linecap="round" class="hidden"/>
+									</svg>
+								</button>
+
+								{{ form_errors(FormulaireInscription.motDePasse) }}
+							</div>
+
+							<button type="submit" class="w-full text-white bg-[#07b98e] hover:bg-[#059e79] focus:ring-4 focus:ring-white/40 font-medium rounded-xl text-sm px-4 py-3 focus:outline-none transition">
+								{{ 'auth.register.submit'|trans }}
+							</button>
+
+							{{ 
+ form_end(FormulaireInscription) }}
+						{% else %}
+							<p class="text-center text-white text-lg">
+								{{ 'auth.register.already_logged'|trans }}
+ </p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		 <script>
+												  const btnRegister = document.getElementById('toggleRegisterPassword');
+												  const slashRegister = document.getElementById('registerEyeSlash');
+const inputRegister = document.querySelector('#register_password') 
+												    || document.querySelector('input[type="password"][name*="motDePasse"]');
+if (btnRegister && slashRegister && inputRegister) {
+												    btnRegister.addEventListener('click', () => {
+												      const visible = inputRegister.type === 'text';
+												      inputRegister.type = visible ? 'password' : 'text';
+												      slashRegister.classList.toggle('hidden', visible);
+												    });
+}
+												</script>
+
+	{% endblock %}

@@ -1,0 +1,10 @@
+INSERT INTO `T_ROLE_ROL` (`ROL_Id`, `ROL_Nom`) VALUES (NULL, 'Organisateur'), (NULL, 'Utilisateur');
+INSERT INTO `T_STATUTEQUIPE_SEQ` (`SEQ_Id`, `SEQ_Etat`) VALUES (NULL, 'Acceptee'), (NULL, 'En attente'),(NULL, 'Refusée');
+INSERT INTO `T_STATUTSMATCH_STM` (`STM_Id`, `STM_Nom`) VALUES (NULL, 'A venir'), (NULL, 'Annule');
+INSERT INTO `T_STATUTSMATCH_STM` (`STM_Id`, `STM_Nom`) VALUES (NULL, 'Termine');
+INSERT INTO `T_UTILISATEUR_UTL` (`UTL_Id`, `UTL_Mail`, `ROL_Id`, `UTL_Nom`, `UTL_Prenom`, `UTL_MotDePasse`) VALUES (NULL, 'test@op.com', '1', 'Max', 'Dav', 'POP'), (NULL, 'opo@op.com', '2', 'Lo', 'Ho', 'iu');
+INSERT INTO `T_COMPETITION_CPT` (`UTL_Id`, `CPT_Nom`, `CPT_Lieu`, `CPT_DateDebut`, `CPT_DateFin`, `CPT_Description`, `CPT_Id`) VALUES ('1', 'Vitality', 'Bordeaux', '2026-01-07', '2026-01-07', 'Lorem Ipsum', NULL);
+INSERT INTO `T_EQUIPE_EQP` (`CPT_Id`, `UTL_Id`, `SEQ_Id`, `EQP_Nom`, `EQP_DateCreation`, `EQP_Etablissement`, `EQP_Membres`, `EQP_Id`) VALUES ('1', '2', '2', 'Test', '2026-01-07 08:17:55.000000', 'IUT Gradignan', NULL, NULL);
+INSERT INTO `T_EQUIPE_EQP` (`CPT_Id`, `UTL_Id`, `SEQ_Id`, `EQP_Nom`, `EQP_DateCreation`, `EQP_Etablissement`, `EQP_Membres`, `EQP_Id`) VALUES ('1', '2', '1', 'Test2', '2026-01-07 08:19:15.000000', 'Fac', NULL, NULL);
+INSERT INTO `T_MATCH_MTC` (`MTC_Id`, `EQP_Id`, `EQP_Id_EquipeB`, `STM_Id`, `CPT_Id`, `MTC_Commentaire`, `MTC_Score`) VALUES (NULL, '1', '2', '1', '1', NULL, NULL);
+

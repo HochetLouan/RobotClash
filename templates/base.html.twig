@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Robot Clash{% endblock %}</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
+
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css">
+
+    {% block stylesheets %}{% endblock %}
+  </head>
+
+  <body class="relative min-h-screen bg-slate-50">
+
+    {% include 'components/_navbar.html.twig' %}
+
+
+    <div class="fixed top-4 right-4 z-50 flex w-full max-w-sm flex-col gap-3 px-4 sm:px-0">
+
+      {% for message in app.flashes('success') %}
+        <div class="toast flex items-start gap-3 rounded-xl border border-emerald-200 bg-white p-4 shadow-lg animate-toast-in">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
+            ✓
+          </div>
+
+          <div class="text-sm text-slate-800">
+            {{ message }}
+          </div>
+
+          <button type="button"
+            data-dismiss-toast
+            class="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition"
+            aria-label="Fermer"
+          >
+            ✕
+          </button>
+        </div>
+      {% endfor %}
+
+
+      {% for message in app.flashes('danger') %}
+        <div class="toast flex items-start gap-3 rounded-xl border border-red-200 bg-white p-4 shadow-lg animate-toast-in">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 text-red-600">
+            !
+          </div>
+
+          <div class="text-sm text-slate-800">
+            {{ message }}
+          </div>
+
+          <button type="button"
+            data-dismiss-toast
+            class="ml-auto flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition"
+            aria-label="Fermer"
+          >
+            ✕
+          </button>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    {% block body %}{% endblock %}
+
+    <script defer src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-dismiss-toast]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const toast = btn.closest(".toast");
+            toast.classList.add("animate-toast-out");
+            setTimeout(() => toast.remove(), 200);
+          });
+        });
+
+        
+        setTimeout(() => {
+          document.querySelectorAll(".toast").forEach(toast => {
+            toast.classList.add("animate-toast-out");
+            setTimeout(() => toast.remove(), 200);
+          });
+        }, 5000);
+      });
+    </script>
+
+  
+    <style>
+      .animate-toast-in {
+        animation: toastIn .25s ease-out both;
+      }
+      .animate-toast-out {
+        animation: toastOut .2s ease-in both;
+      }
+
+      @keyframes toastIn {
+        from { opacity: 0; transform: translateY(-6px) scale(.97); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @keyframes toastOut {
+        from { opacity: 1; transform: translateY(0) scale(1); }
+        to   { opacity: 0; transform: translateY(-6px) scale(.97); }
+      }
+    </style>
+
+    {% block javascripts %}{% endblock %}
+  </body>
+</html>

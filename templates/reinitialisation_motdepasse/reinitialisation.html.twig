@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'reset_password.request.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen w-screen bg-[#9ECFC2] flex items-center justify-center px-6">
+  <div class="w-full max-w-md rounded-2xl bg-white/90 p-8 shadow-lg ring-1 ring-black/5 backdrop-blur">
+
+ 
+    {% for flash_error in app.flashes('reset_password_error') %}
+      <div class="mb-4 rounded-xl bg-red-600/15 px-4 py-3 text-sm font-medium text-red-900">
+        {{ flash_error }}
+      </div>
+    {% endfor %}
+
+    <h1 class="mb-2 text-2xl font-bold text-slate-900 text-center">
+      {{ 'reset_password.request.heading'|trans }}
+    </h1>
+
+    <p class="mb-6 text-sm text-slate-600 text-center">
+      {{ 'reset_password.request.subheading'|trans }}
+    </p>
+
+    {{ form_start(requestForm, { attr: { class: 'space-y-5' } }) }}
+
+      <div>
+        {{ form_label(requestForm.email, null, {
+          label_attr: { class: 'text-xs font-semibold text-slate-700' }
+        }) }}
+
+        {{ form_widget(requestForm.email, {
+          attr: {
+            class: 'mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900
+                     focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/15 outline-none',
+            placeholder: 'reset_password.request.email_placeholder'|trans
+          }
+        }) }}
+      </div>
+
+      <button
+        type="submit"
+        class="w-full rounded-xl bg-emerald-600 py-3 text-sm font-bold text-white shadow-lg
+               hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition"
+      >
+        {{ 'reset_password.request.button'|trans }}
+      </button>
+
+    {{ form_end(requestForm) }}
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,370 @@
+<nav class="relative z-50 bg-[#07b98e] h-auto">
+	<div class="max-w-screen-xl mx-auto flex items-center py-1 relative">
+		<div class="hidden md:flex flex-1 items-center gap-20">
+			<a href="{{ path('app_default') }}" class="font-medium text-white/95 hover:text-white transition-colors">
+				{{ 'nav.main.home'|trans }}
+			</a>
+			<button id="dropdownStatsButton" data-dropdown-toggle="dropdownStats" class="flex items-center font-medium text-white/95 hover:text-white hover:bg-white/10 px-3 py-2 rounded-xl transition" type="button">
+				{{ 'nav.main.stats'|trans }}
+				<svg class="w-4 h-4 ms-1.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+					<path stroke="currentColor" stroke-width="2" d="m19 9-7 7-7-7"/>
+				</svg>
+			</button>
+		</div>
+		<div class="flex justify-center">
+			<img src="{{ asset('logoRobotClash.png') }}" class="h-20 w-auto scale-150" alt="Logo Robot Clash">
+		</div>
+		<div class="hidden md:flex flex-1 items-center justify-end gap-6">
+			{% if is_granted('IS_IMPERSONATOR') %}
+				<form method="post" action="{{ path('app_changer_utilisateur', {'_switch_user': '_exit'}) }}">
+					<button type="submit" class="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white
+												hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-600/20 transition">
+						{{ 'nav.actions.back_to_account'|trans }}
+					</button>
+				</form>
+			{% endif %}
+			<button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" 
+ type="button" class="inline-flex items-center justify-center
+								          text-white  backdrop-blur
+								         hover:bg-white/25 hover:ring-white/30
+								         focus:outline-none focus:ring-4 focus:ring-white/30
+								         transition" aria-expanded="false">
+				<span class="sr-only">{{ 'nav.accessibility.open_menu'|trans }}</span>
+				<svg class="w-5 h-5" viewbox="-5.2 -5.2 62.40 62.40" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+					<path d="M39,18.67H35.42l-4.2,11.12A29,29,0,0,1,20.6,24.91a28.76,28.76,0,0,0,7.11-14.49h5.21a2,2,0,0,0,0-4H19.67V2a2,2,0,1,0-4,0V6.42H2.41a2,2,0,0,0,0,4H7.63a28.73,28.73,0,0,0,7.1,14.49A29.51,29.51,0,0,1,3.27,30a2,2,0,0,0,.43,4,1.61,1.61,0,0,0,.44-.05,32.56,32.56,0,0,0,13.53-6.25,32,32,0,0,0,12.13,5.9L22.83,52H28l2.7-7.76H43.64L46.37,52h5.22Zm-15.3-8.25a23.76,23.76,0,0,1-6,11.86,23.71,23.71,0,0,1-6-11.86Zm8.68,29.15,4.83-13.83L42,39.57Z"></path>
+				</svg>
+			</button>
+			<div id="dropdownDots" class="z-50 hidden w-52 overflow-hidden rounded-2xl
+										         bg-white/90 backdrop-blur shadow-xl ring-1 ring-black/10">
+				<ul class="p-2 text-sm font-semibold text-slate-800">
+					<li>
+						<a href="{{ path('app_changer_langue', {'langage': 'fr'}) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-green-300 transition">
+							🇫🇷 {{ 'nav.language.french'|trans }}
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('app_changer_langue', {'langage': 'en'}) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-green-300 
+						 transition">
+							🇬🇧 {{ 'nav.language.english'|trans }}
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('app_changer_langue', {'langage': 'es'}) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-green-300 transition">
+							🇪🇸 {{ 'nav.language.spanish'|trans }}
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('app_changer_langue', {'langage': 'ja'}) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-green-300 transition">
+							🇯🇵 {{ 'nav.language.japanese'|trans }}
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('app_changer_langue', {'langage': 'nl'}) }}" class="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-green-300 transition">
+							🇳🇱 {{ 'nav.language.dutch'|trans }}
+						</a>
+				</ul>
+			</div>
+			{% if is_granted('ROLE_USER') %}
+				<button id="dropdownParticiperButton" data-dropdown-toggle="dropdownParticiperMenu" class="flex items-center font-semibold text-white/95 hover:text-white hover:bg-white/10 px-3 py-2 rounded-xl transition" type="button">
+					{{ 'nav.actions.participate'|trans }}
+					<svg class="w-4 h-4 ms-1.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-width="2" d="m19 9-7 7-7-7"/>
+					</svg>
+				</button>
+			{% endif %}
+			{% if is_granted('ROLE_ORGANISATEUR') %}
+				<button id="dropdownParticiperButton" data-dropdown-toggle="dropdownParticiperMenu" class="flex items-center font-semibold text-white/95 hover:text-white hover:bg-white/10 px-3 py-2 rounded-xl transition" type="button">
+					{{ 'nav.actions.manage'|trans }}
+					<svg class="w-4 h-4 ms-1.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-width="2" d="m19 9-7 7-7-7"/>
+					</svg>
+				</button>
+			{% endif %}
+			{% if is_granted('ROLE_ORGANISATEUR') or is_granted('ROLE_USER') %}
+				<div class="flex items-center gap-3">
+					<button type="button" class="flex text-sm rounded-full focus:ring-4 focus:ring-white/30" 
+ 				id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom-end">
+						<span class="sr-only">{{ 'nav.accessibility.open_user_menu'|trans }}</span>
+						<img class="w-9 h-9 rounded-full object-cover bg-white/60" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{ app.user.email }}" alt="Avatar">
+					</button>
+					<div id="user-dropdown" class="z-50 hidden w-64 overflow-hidden rounded-2xl shadow-lg bg-white">
+						<div class="px-4 py-3 text-sm border-b border-black/10">
+							<span class="block font-semibold text-black">
+								{{ app.user.prenom }}
+								{{ app.user.nom }}
+							</span>
+							{% if is_granted('ROLE_ORGANISATEUR') %}
+								<span class="bg-warning-soft text-fg-warning text-xs font-medium px-1.5 py-0.5 rounded">{{ 'nav.user.role_organizer'|trans }}</span>
+							{% endif %}
+							{% if is_granted('ROLE_USER') %}
+								<span class="bg-brand-softer text-fg-brand-strong text-xs font-medium px-1.5 py-0.5 rounded">{{ 'nav.user.role_user'|trans }}</span>
+							{% endif %}
+							<span class="block text-black/60 truncate">
+								{{ app.user.email }}
+							</span>
+						</div>
+						<ul class="p-2 text-sm font-medium" aria-labelledby="user-menu-button">
+							{% if is_granted('ROLE_USER') %}
+								<li>
+									<a href="{{ path('app_utilisateur_equipe', {id : app.user.id}) }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+										{{ 'nav.user.my_teams'|trans }}
+									</a>
+								</li>
+							{% endif %}
+
+							{% if is_granted('ROLE_ORGANISATEUR') %}
+								<li>
+									<a href="{{ path('app_competition_organisateur_competition', { id : app.user.id }) }}" class="block 
+									 px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+										{{ 'nav.user.my_competitions'|trans }}
+									</a>
+								</li>
+							{% endif %}
+							<li class="my-1 border-t border-black/10"></li>
+							<li>
+								<form method="post" action="{{ path('app_profil') }}">
+									<button type="submit" class="w-full text-left px-3 py-2 rounded-xl hover:bg-red-50 hover:text-red-600 transition">
+										{{ 'nav.actions.profile'|trans }}
+									</button>
+								</form>
+							</li>
+							<li>
+								<form method="post" action="{{ path('app_deconnexion') }}">
+									<button type="submit" class="w-full text-left px-3 py-2 rounded-xl hover:bg-red-50 hover:text-red-600 transition">
+										{{ 'nav.actions.logout'|trans }}
+									</button>
+								</form>
+							</li>
+						</ul>
+					</div>
+				</div>
+			{% else %}
+				<button id="dropdownNavbarButton" data-dropdown-toggle="dropdownNavbar" type="button" class="flex items-center font-medium text-white/95 hover:text-white hover:bg-white/10 px-3 py-2 rounded-xl transition">
+					{{ 'nav.actions.login_register'|trans }}
+					<svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-width="2" d="m19 9-7 7-7-7"/>
+					</svg>
+				</button>
+			{% endif %}
+		</div>
+		<div class="md:hidden flex-1 flex justify-end">
+			<button data-collapse-toggle="mobile-menu" type="button" class="inline-flex items-center justify-center w-10 h-10 rounded-xl text-white/95 hover:text-white hover:bg-white/15 transition" aria-controls="mobile-menu" aria-expanded="false">
+				<span class="sr-only">Open main menu</span>
+				<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+					<path stroke="currentColor" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+				</svg>
+			</button>
+		</div>
+	</div>
+	<div class="hidden w-full md:hidden" id="mobile-menu">
+		<div class="bg-[#07b98e]">
+			<div class="p-4 space-y-4">
+				<a href="{{ path('app_default') }}" class="flex items-center justify-between px-4 py-3 bg-white/15 hover:bg-white/25 transition">
+					<span class="text-base font-semibold text-white">{{ 'nav.main.home'|trans }}</span>
+					<svg class="w-4 h-4 text-white/70" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-width="2" d="m9 5 7 7-7 7"/>
+					</svg>
+				</a>
+				{% if is_granted('IS_IMPERSONATOR') %}
+					<form method="post" action="{{ path('app_changer_utilisateur', {'_switch_user': '_exit'}) }}">
+						<button type="submit" class="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white
+															hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-600/20 transition">
+							{{ 'nav.actions.back_to_account'|trans }}
+						</button>
+					</form>
+				{% endif %}
+				{% if is_granted('ROLE_ORGANISATEUR') %}
+					<div class="rounded-2xl bg-white/10 backdrop-blur">
+						<div class="px-4 pt-4 pb-2">
+							<h3 class="text-lg font-extrabold text-white">{{ 'nav.actions.manage'|trans }}</h3>
+							<p class="text-xs text-white/70 mt-0.5">{{ 'nav.mobile.manage_subtitle'|trans }}</p>
+						</div>
+						<div class="px-2 pb-3 space-y-1">
+
+							<a href="{{ path('app_competition') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+								<span class="font-semibold text-white">{{ 'nav.create.create_competition'|trans }}</span>
+								<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+							</a>
+
+							<a href="{{ path('app_liste_utilisateurs') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+								<span class="font-semibold text-white">{{ 'nav.create.view_users'|trans }}</span>
+								<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+							</a>
+
+							<a href="{{ path('app_liste_organisateurs') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+								<span class="font-semibold text-white">{{ 'nav.create.view_organizers'|trans }}</span>
+								<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+							</a>
+
+						</div>
+					</div>
+				{% endif %}
+				<div class="rounded-2xl bg-white/10 backdrop-blur">
+					<div class="px-4 pt-4 pb-2">
+						<h3 class="text-lg font-extrabold 
+ text-white">{{ 'nav.mobile.explore_title'|trans }}</h3>
+						<p class="text-xs text-white/70 mt-0.5">{{ 'nav.mobile.explore_subtitle'|trans }}</p>
+					</div>
+					<div class="px-2 pb-3 space-y-1">
+
+						<a href="{{ path('app_competition') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">{{ 'nav.main.competitions'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+					</div>
+				</div>
+				<div class="rounded-2xl bg-white/10 backdrop-blur">
+					<div class="px-4 pt-4 pb-2 flex items-center justify-between">
+						<div>
+							<h3 class="text-lg font-extrabold text-white">{{ 'nav.language.title'|trans }}</h3>
+							<p class="text-xs text-white/70 mt-0.5">{{ 'nav.language.subtitle'|trans }}</p>
+						</div>
+						<div class="grid h-10 w-10 place-items-center rounded-2xl bg-white/10 text-white">
+							<svg class="w-5 h-5" viewbox="-5.2 -5.2 62.40 62.40" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+								<path d="M39,18.67H35.42l-4.2,11.12A29,29,0,0,1,20.6,24.91a28.76,28.76,0,0,0,7.11-14.49h5.21a2,2,0,0,0,0-4H19.67V2a2,2,0,1,0-4,0V6.42H2.41a2,2,0,0,0,0,4H7.63a28.73,28.73,0,0,0,7.1,14.49A29.51,29.51,0,0,1,3.27,30a2,2,0,0,0,.43,4,1.61,1.61,0,0,0,.44-.05,32.56,32.56,0,0,0,13.53-6.25,32,32,0,0,0,12.13,5.9L22.83,52H28l2.7-7.76H43.64L46.37,52h5.22Zm-15.3-8.25a23.76,23.76,0,0,1-6,11.86,23.71,23.71,0,0,1-6-11.86Zm8.68,29.15,4.83-13.83L42,39.57Z"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="px-2 pb-3 grid grid-cols-2 gap-2">
+						<a href="{{ path('app_changer_langue', {'langage': 'fr'}) }}" class="flex items-center justify-between rounded-xl px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">🇫🇷 {{ 'nav.language.french'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+
+						<a href="{{ path('app_changer_langue', {'langage': 'en'}) }}" class="flex items-center justify-between rounded-xl px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">🇬🇧 {{ 'nav.language.english'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+
+						<a href="{{ path('app_changer_langue', {'langage': 'es'}) }}" 
+ class="flex items-center justify-between rounded-xl px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">🇪🇸 {{ 'nav.language.spanish'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+
+						<a href="{{ path('app_changer_langue', {'langage': 'ja'}) }}" class="flex items-center justify-between rounded-xl px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">🇯🇵 {{ 'nav.language.japanese'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+
+						<a href="{{ path('app_changer_langue', {'langage': 'nl'}) }}" class="flex items-center justify-between rounded-xl px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+							<span class="font-semibold text-white">🇳🇱 {{ 'nav.language.dutch'|trans }}</span>
+							<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+						</a>
+
+					</div>
+				</div>
+				{% if app.user %}
+					<div class="rounded-2xl bg-white/10 backdrop-blur">
+						<div class="px-4 pt-4 pb-2 flex items-center gap-3">
+							<img class="w-10 h-10 rounded-full bg-white/60" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{app.user.email}}" alt="Avatar">
+							<div>
+								<div class="text-white font-extrabold leading-tight">
+									{{ app.user.prenom }}
+									{{ app.user.nom }}
+								</div>
+								<div class="text-xs text-white/70 truncate">{{ app.user.email }}</div>
+							</div>
+						</div>
+						<div class="px-2 pb-3 space-y-1">
+							{% if is_granted('ROLE_USER') %}
+								<a href="{{ path('app_utilisateur_equipe', { id : app.user.id }) }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+									<span class="font-semibold text-white">{{ 'nav.user.my_teams'|trans }}</span>
+									<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+								</a>
+							{% endif %}
+							{% if is_granted('ROLE_ORGANISATEUR') %}
+								<a href="{{ path('app_competition_organisateur_competition', { id : app.user.id }) }}" class="flex 
+ items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+									<span class="font-semibold text-white">{{ 'nav.user.my_competitions'|trans }}</span>
+									<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+								</a>
+							{% endif %}
+							<form method="post" action="{{ path('app_profil') }}">
+								<button type="submit" class="w-full text-left flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+									<span class="font-semibold text-white">{{ 'nav.actions.profile'|trans }}</span>
+									<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+								</button>
+								<form method="post" action="{{ path('app_deconnexion') }}">
+									<button type="submit" class="w-full text-left flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-red-500/20 transition">
+										<span class="font-semibold text-white">{{ 'nav.actions.logout'|trans }}</span>
+										<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+									</button>
+								</form>
+							</div>
+						</div>
+					{% else %}
+						<div class="rounded-2xl bg-white/10 backdrop-blur">
+							<div class="px-4 pt-4 pb-2">
+								<h3 class="text-lg font-extrabold text-white">{{ 'nav.actions.login_register'|trans }}</h3>
+								<p class="text-xs text-white/70 mt-0.5">{{ 'nav.mobile.account_subtitle'|trans }}</p>
+							</div>
+							<div class="px-2 pb-3 space-y-1">
+								<a href="{{ path('app_connexion') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+									<span class="font-semibold text-white">{{ 'nav.actions.login'|trans }}</span>
+									<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+								</a>
+								<a href="{{ path('app_inscription') }}" class="flex items-center justify-between px-3 py-3 bg-white/10 hover:bg-white/20 transition">
+									<span 
+ class="font-semibold text-white">{{ 'nav.actions.register'|trans }}</span>
+									<span class="text-xs text-white/70">{{ 'nav.misc.arrow'|trans }}</span>
+								</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div id="dropdownStats" class="z-10 hidden w-56 overflow-hidden rounded-2xl shadow-lg bg-white">
+			<ul class="p-2 text-sm font-medium">
+				<li>
+					<a href="{{ path('app_competition') }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+						{{ 'nav.main.competitions'|trans }}
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div id="dropdownParticiperMenu" class="z-10 hidden w-56 overflow-hidden rounded-2xl shadow-lg bg-white">
+			<ul class="p-2 text-sm font-medium">
+				<li>
+					{% if is_granted('ROLE_USER') %}
+						<a href="{{ path('app_competition') }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+							{{ 'nav.create.create_team'|trans }}
+						</a>
+					{% endif %}
+				</li>
+				<li>
+					{% if is_granted('ROLE_ORGANISATEUR') %}
+						<a href="{{ path('app_competition_nouvelle') }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+							{{ 'nav.create.create_competition'|trans }}
+						</a>
+
+						<a href="{{ path('app_liste_utilisateurs') }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+							{{ 'nav.create.view_users'|trans }}
+						</a>
+
+						<a href="{{ path('app_liste_organisateurs') }}" class="block px-3 py-2 rounded-xl hover:bg-[#07b98e]/10 hover:text-[#07b98e] transition">
+							{{ 'nav.create.view_organizers'|trans }}
+						</a>
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+		<div id="dropdownNavbar" class="z-10 
+ hidden w-56 overflow-hidden rounded-2xl shadow-lg bg-white">
+			<ul class="p-2 text-sm font-medium space-y-1">
+				<li>
+					<a href="{{ path('app_connexion') }}" class="block px-4 py-2.5 rounded-xl font-semibold text-[#07b98e] hover:bg-[#07b98e]/10 transition">
+						{{ 'nav.actions.login'|trans }}
+					</a>
+				</li>
+				<li>
+					<a href="{{ path('app_inscription') }}" class="block px-4 py-2.5 rounded-xl font-semibold text-[#07b98e] hover:bg-[#07b98e]/10 transition">
+						{{ 'nav.actions.register'|trans }}
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>

@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'match_scores.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen w-screen bg-cover bg-center bg-no-repeat bg-local"
+     style="background-image: url('{{ asset('images/ModifDesScores.svg') }}');">
+
+  <div class="min-h-screen w-screen bg-black/30">
+    <div class="mx-auto max-w-6xl px-6 py-12">
+
+      <div class="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-white">{{ 'match_scores.heading'|trans }}</h1>
+        </div>
+
+        <div class="inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white ring-1 ring-white/15">
+          {{ 'match_scores.total'|trans({'%count%': matchs|length}) }}
+        </div>
+      </div>
+
+      {% if is_granted('ROLE_ORGANISATEUR') %}
+
+        <form method="POST" action="{{ path('app_scores_maj_all', { competitionId: competitionId }) }}">
+
+          <div class="rounded-2xl bg-white/90 shadow-lg ring-1 ring-black/5 backdrop-blur overflow-hidden">
+
+            <div class="px-6 py-4 border-b border-slate-200/70">
+              <div class="text-sm font-semibold text-slate-900">{{ 'match_scores.table.title'|trans }}</div>
+              <div class="text-xs text-slate-500">{{ 'match_scores.table.subtitle'|trans }}</div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-slate-50 text-slate-700">
+                  <tr>
+                    <th class="px-6 py-4 font-semibold text-green-600">{{ 'match_scores.table.col.green_team'|trans }}</th>
+                    <th class="px-6 py-4 font-semibold text-sky-600">{{ 'match_scores.table.col.blue_team'|trans }}</th>
+                    <th class="px-6 py-4 font-semibold">{{ 'match_scores.table.col.score'|trans }}</th>
+                  </tr>
+                </thead>
+
+                <tbody class="divide-y divide-slate-200/70">
+                  {% set shown = 0 %}
+
+                  {% for match in matchs %}
+                    {% if match.statusA == 1 and match.statusB == 1 %}
+                      {% set shown = shown + 1 %}
+
+                      <tr class="hover:bg-slate-50/70 transition">
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-3">
+                            <img class="h-10 w-10 rounded-full bg-white ring-1 ring-black/10 p-1"
+                                 src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{ match.equipeA|url_encode }}"
+                                 alt="Avatar {{ match.equipeA }}" loading="lazy"/>
+                            <div class="font-semibold text-slate-900 truncate max-w-[220px]">
+                              {{ match.equipeA }}
+                            </div>
+                          </div>
+                        </td>
+
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-3">
+                            <img class="h-10 w-10 rounded-full bg-white ring-1 ring-black/10 p-1"
+                                 src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{ match.equipeB|url_encode }}"
+                                 alt="Avatar {{ match.equipeB }}" loading="lazy"/>
+                            <div class="font-semibold text-slate-900 truncate max-w-[220px]">
+                              {{ match.equipeB }}
+                            </div>
+                          </div>
+                        </td>
+
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-2">
+                            <input
+                              type="number"
+                              name="scores[{{ match.id }}][scoreA]"
+                              min="0"
+                              value="{{ match.scoreA }}"
+                              class="w-20 rounded-xl border-slate-200 bg-white px-3 py-2 text-sm text-slate-900
+                                     focus:border-emerald-500 focus:ring-emerald-500"
+                            />
+                            <span class="text-slate-500 font-semibold">-</span>
+                            <input
+                              type="number"
+                              name="scores[{{ match.id }}][scoreB]"
+                              min="0"
+                              value="{{ match.scoreB }}"
+                              class="w-20 rounded-xl border-slate-200 bg-white px-3 py-2 text-sm text-slate-900
+                                     focus:border-emerald-500 focus:ring-emerald-500"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if shown == 0 %}
+                    <tr>
+                      <td colspan="3" class="px-6 py-10 text-center">
+                        <div class="text-sm font-semibold text-slate-900">{{ 'match_scores.empty.title'|trans }}</div>
+                        <div class="mt-1 text-xs text-slate-500">
+                          {{ 'match_scores.empty.subtitle'|trans }}
+                        </div>
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+
+          
+            {% if shown > 0 %}
+              <div class="sticky bottom-0 border-t border-slate-200/70 bg-white/95 px-6 py-4">
+                <button
+                  type="submit"
+                  class="w-full inline-flex items-center justify-center rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white
+                         hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 transition"
+                >
+                  {{ 'match_scores.button.save_all'|trans }}
+                </button>
+              </div>
+            {% endif %}
+
+          </div>
+        </form>
+
+      {% else %}
+        <div class="rounded-2xl bg-white/90 p-8 text-center shadow-lg ring-1 ring-black/5 backdrop-blur">
+          <p class="text-lg font-semibold text-slate-900">{{ 'match_scores.error.access_denied_title'|trans }}</p>
+          <p class="mt-2 text-sm text-slate-600">{{ 'match_scores.error.access_denied_subtitle'|trans }}</p>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

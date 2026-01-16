@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<meta charset="UTF-8">
+	{% block title %}
+		{{ 'home.title'|trans }}
+	{% endblock %}
+
+	{% block stylesheets %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css">
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+	<section class="
+		relative h-screen flex items-center justify-center
+		bg-[url('/ImageAccueil.png')]
+		bg-cover bg-center bg-no-repeat
+	">
+		<div class="absolute inset-0 bg-black/50"></div>
+
+		<div class="relative z-10 py-8 px-4 mx-auto max-w-screen-2xl text-center lg:py-16 text-white">
+			<h1 class="mb-6 text-4xl font-bold tracking-tighter md:text-5xl lg:text-6xl">
+				<span id="typing-text"></span>
+				<span class="animate-pulse">|</span>
+			</h1>
+
+			<p class="mb-8 text-base md:text-xl text-white/90">
+				{{ 'home.subtitle'|trans }}
+			</p>
+
+			<div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 md:space-x-4">
+				{% if not is_granted('ROLE_ORGANISATEUR') and not is_granted('ROLE_USER') %}
+					<a href="{{ path('app_connexion') }}" class="
+						inline-flex items-center justify-center
+						font-medium text-white
+						bg-[#07b98e]
+						px-6 py-3 rounded-xl text-base
+						transition-all duration-700 ease-in-out
+						hover:bg-white
+						hover:!text-[#07b98e]
+					">
+						{{ 'home.login'|trans }}
+						<svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+						</svg>
+					</a>
+				{% endif %}
+
+				<a href="{{ path('app_competition') }}" class="
+					inline-flex items-center justify-center
+					font-medium text-white
+					bg-white/10
+					px-6 py-3 rounded-xl text-base
+					transition-all duration-700 ease-in-out
+					hover:bg-white
+					hover:!text-[#07b98e]
+				">
+					{{ 'home.view_tournaments'|trans }}
+					<svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{% block javascripts %}
+		<script>
+			const text = "{{ 'home.title'|trans }}";
+			const speed = 180;
+			const delay = 2000;
+			let index = 0;
+
+			function typeWriter() {
+				const el = document.getElementById("typing-text");
+				if (index < text.length) {
+					el.textContent += text.charAt(index);
+					index++;
+					setTimeout(typeWriter, speed);
+				} else {
+					setTimeout(() => {
+						el.textContent = "";
+						index = 0;
+						typeWriter();
+					}, delay);
+				}
+			}
+
+			window.addEventListener("load", typeWriter);
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+	{% endblock %}
+{% endblock %}

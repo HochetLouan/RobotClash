@@ -1,0 +1,599 @@
+home:
+  title: "ロボットクラッシュ"
+  subtitle: "ロボットサッカーの試合を簡単に企画・管理できます。"
+  login: "ログイン"
+  view_tournaments: "開催中の大会を見る"
+
+login:
+  title: "ログイン"
+  image_alt: "ログイン用ロボット画像"
+  error_invalid_credentials: "メールアドレスまたはパスワードが正しくありません"
+  email: "メールアドレス"
+  password: "パスワード"
+  remember_me: "ログイン状態を保持する"
+  submit: "ログイン"
+  forgot_password: "パスワードをお忘れですか？"
+  already_logged: "⛔ すでにログインしています！"
+
+nav:
+  main:
+    home: "ホーム"
+    stats: "対戦 / 統計"
+    competitions: "大会一覧"
+  actions:
+    participate: "参加する"
+    manage: "管理する"
+    login_register: "ログイン / 新規登録"
+    login: "ログイン"
+    register: "新規登録"
+    logout: "ログアウト"
+    profile: "プロフィール"
+    back_to_account: "マイページへ戻る"
+  user:
+    my_teams: "マイチーム"
+    my_competitions: "主催大会"
+    role_user: "ユーザー"
+    role_organizer: "主催者"
+  create:
+    create_team: "チーム作成"
+    create_competition: "大会作成"
+    view_users: "ユーザー一覧"
+    view_organizers: "主催者一覧"
+  language:
+    title: "言語"
+    subtitle: "言語を選択"
+    french: "フランス語"
+    english: "英語"
+    spanish: "スペイン語"
+    japanese: "日本語"
+    dutch: "オランダ語"
+    error_unsupported: "サポートされていない言語です"
+  mobile:
+    explore_title: "対戦 / 統計"
+    explore_subtitle: "チームと試合を探索"
+    participate_subtitle: "チームまたは大会を作成"
+    manage_subtitle: "チームまたは大会を管理"
+    account_subtitle: "マイページにアクセス"
+  accessibility:
+    open_menu: "メニューを開く"
+    open_user_menu: "ユーザーメニューを開く"
+  misc:
+    arrow: "→"
+
+competition:
+  create_title: "大会作成"
+  create_new: "新しい大会を作成"
+  fill_info: "基本情報を入力して作成を確定してください。"
+  details_create: "大会詳細"
+  required_fields: "印のついた項目は必須です。"
+  tip_date: "ヒント：終了日が開始日以降であることを確認してください。"
+  edit_title: "大会編集"
+  edit_heading: "大会情報を編集"
+  edit_subheading: "情報を更新して確定してください。"
+  organizer: "主催者"
+  details_edit: "詳細"
+  details: "大会の詳細情報"
+  name: "大会名"
+  name_placeholder: "大会の名前を入力"
+  description: "説明"
+  description_placeholder: "短く分かりやすい説明を..."
+  location: "会場"
+  location_placeholder: "例：A体育館"
+  nb_terrains: "コート数"
+  start_date: "開始日"
+  end_date: "終了日"
+  access_denied: "⛔ 主催者専用アクセス"
+  organizer_only: "主催者アカウントでログインしてください。"
+  error:
+    not_found: "大会が見つかりません。"
+    team_not_found: "チームが見つかりません。"
+    save_failed: "保存できません：大会名がすでに使用されているか、日付が正しくありません"
+  flash:
+    created: "大会が正常に作成されました！"
+    error_create: "大会を作成できませんでした（名前の重複または無効なデータ）。"
+    status_updated: "変更内容が保存されました。"
+    error_status: "データの更新中にエラーが発生したか、日付形式が無効です。"
+    deleted: "大会が完全に削除されました。"
+    error_delete: "大会を削除できませんでした。"
+
+flash:
+  error: "技術的なエラーが発生しました。"
+  success: "成功："
+
+button:
+  back: "← 戻る"
+  create_competition: "大会を作成する"
+  save_changes: "変更を確定する"
+
+competition_list:
+  title: "大会一覧"
+  heading: "大会"
+  subheading: "開催中の大会リスト"
+  total: "合計: %{total}"
+  search:
+    placeholder: "検索…"
+    button: "検索"
+  status:
+    ongoing: "開催中"
+    upcoming: "開催予定"
+    finished: "終了"
+  cards:
+    location: "場所"
+    date: "日付"
+    teams: 
+      title: "チームを見る"
+      subtitle: "登録済みチーム"
+      button: "次へ"
+    matches:
+      title: "試合"
+      subtitle: "リストを見る"
+      button: "観戦"
+    registration:
+      title: "参加登録"
+      subtitle: "チームを追加"
+      continue: "次へ"
+      login: "ログインしてください"
+    manage_teams:
+      title: "チームの承認"
+      continue: "次へ"
+    description: "説明"
+    edit_competition: "大会を編集"
+    delete_competition: "大会を削除"
+  modal:
+    delete:
+      title: "大会の削除"
+      warning: "この操作は取り消せません。"
+      confirm: "はい、削除します"
+      cancel: "キャンセル"
+      tip: "ヒント：ESCキーで閉じます"
+      message: "本当にこの大会を削除しますか？"
+      message_detail: "関連するすべてのデータにアクセスできなくなる可能性があります。"
+    members:
+      title: "登録済みチーム"
+      close: "閉じる"
+      no_teams: "登録されているチームはありません。"
+      send_email: "チームにメールを送信"
+  empty:
+    title: "大会がありません"
+    message: "後で再確認するか、新しく作成してください。"
+  pagination:
+    previous: "前へ"
+    next: "次へ"
+  associated_competition: "関連大会"
+
+auth:
+  register:
+    title: "新規登録"
+    heading: "新規登録"
+    firstname: "名"
+    lastname: "姓"
+    email: "メールアドレス"
+    password: "パスワード"
+    submit: "登録する"
+    already_logged: "⛔ すでにアカウントをお持ちで、ログイン済みです！"
+    error_email_taken: "登録できません：このメールアドレスは既に使用されています。"
+
+registration_management:
+  title: "チーム管理"
+  heading: "チーム管理"
+  subheading: "参加申請の承認、保留、または却下を行います。"
+  request_count: "件の申請"
+  role_organizer: "主催者"
+  team_id: "チームID"
+  validation_tip: "バッジは承認後に更新されます。"
+  save_reminder: "登録ステータスが更新されました。"
+  submit: "ステータスを確定"
+  label:
+    establishment: "所属（学校・団体）"
+    members: "メンバー"
+    status: "ステータス"
+  status:
+    pending: "保留中"
+    accepted: "承認済み"
+    refused: "却下"
+  empty:
+    title: "現在、申請はありません"
+    subtitle: "この大会への参加を希望しているチームはありません。"
+  filter:
+    all: "すべて"
+    pending: "保留中"
+    accepted: "承認済み"
+    refused: "却下"
+
+competition_filter:
+  all: "すべて"
+  ongoing: "開催中"
+  upcoming: "開催予定"
+  finished: "終了"
+
+my_teams:
+  title: "マイチーム"
+  heading: "マイチーム"
+  subheading: "登録状況を確認し、大会に参加しましょう。"
+  total: "合計: %count%"
+  access_denied_title: "⛔ ユーザー専用アクセス"
+  access_denied_subtitle: "ユーザーアカウントでログインしてください。"
+  label:
+    advice: "アドバイス"
+  button:
+    login: "ログイン"
+    edit: "チーム編集"
+    view_competition: "大会詳細を見る"
+  status:
+    accepted: "承認済み"
+    pending: "保留中"
+    refused: "却下"
+  advice:
+    accepted: "チームが承認されました：試合情報を確認できます。"
+    pending: "登録は現在主催者によって確認中です。"
+    refused: "登録が却下されました：情報を確認するか、主催者にお問い合わせください。"
+  empty:
+    title: "関連付けられたチームがありません"
+    subtitle: "大会に申し込んでチームを作成・追加してください。"
+
+team_registration:
+  title: "チーム登録"
+  heading: "チームを登録する"
+  label:
+    team_name: "チーム名"
+    establishment: "所属（学校・団体）"
+  button:
+    add_members_modal: "メンバーを追加"
+    submit: "チームを登録する"
+  error:
+    access_denied: "⛔ ユーザー専用アクセス。ログインが必要です。"
+    name_taken: "この名前はすでに他のチームで使用されています。"
+    name_taken_competition: "更新できません：そのチーム名はすでにこの大会内で使用されています。"
+    not_found: "チームが見つかりません。"
+  modal:
+    title: "メンバー追加"
+    subtitle: "メール、名、姓を入力して「メンバーを追加」をクリックしてください。"
+    close: "閉じる"
+    list_title: "追加されたメンバー"
+    empty_list: "まだメンバーが追加されていません。"
+    label:
+      email: "メールアドレス"
+      firstname: "名"
+      lastname: "姓"
+    placeholder:
+      email: "例: taro.tanaka@email.com"
+      firstname: "太郎"
+      lastname: "田中"
+    button:
+      add: "メンバーを追加"
+      remove: "削除"
+      cancel: "キャンセル"
+      finalize: "完了"
+    error:
+      fill_all: "すべての項目を入力してください。"
+      invalid_email: "無効なメールアドレスです。"
+      duplicate_email: "このメールアドレスはすでにリストにあります。"
+  edit:
+    title: "チーム編集"
+    heading: "チーム情報を編集"
+    submit: "更新する"
+  flash:
+    edit_success: "チーム情報が正常に更新されました！"
+
+organizers_list:
+  title: "主催者一覧"
+  heading: "主催者"
+  subheading: "プラットフォームに登録されている主催者アカウント"
+  total: "合計: %total%"
+  search:
+    label: "検索"
+    placeholder: "主催者を検索..."
+    button: "検索"
+  table:
+    name: "姓 / 名"
+    email: "メールアドレス"
+    actions: "アクション"
+    impersonate: "なりすましログイン"
+    empty: "主催者が見つかりませんでした。"
+  pagination:
+    previous: "前へ"
+    next: "次へ"
+  error:
+    access_denied_title: "⛔ 主催者専用アクセス"
+    access_denied_subtitle: "主催者アカウントでログインしてください。"
+
+users_list:
+  title: "ユーザー一覧"
+  heading: "ユーザー"
+  subheading: "プラットフォームに登録されているユーザーアカウント"
+  total: "合計: %total%"
+  search:
+    label: "検索"
+    placeholder: "検索…"
+    button: "検索"
+    field_label: "項目"
+    fields:
+      all: "すべて"
+      lastname: "姓"
+      firstname: "名"
+      email: "メールアドレス"
+  actions:
+    reset_password: "パスワードをリセット"
+    confirm_reset: "本当にこのユーザーにリセットメールを送信しますか？"
+    impersonate: "なりすましログイン"
+    promote: "主催者に昇格"
+    confirm_promote: "このユーザーを主催者に変更しますか？"
+  flash:
+    role_change_error: "ロールの変更中にエラーが発生しました。"
+  empty:
+    title: "ユーザーがいません"
+    message: "リストは現在空です。"
+  pagination:
+    previous: "前へ"
+    next: "次へ"
+  error:
+    access_denied_title: "⛔ 主催者専用アクセス"
+    access_denied_subtitle: "主催者アカウントでログインしてください。"
+
+ranking:
+  title: "ランキング"
+  heading: "ランキング"
+  subheading: "表彰台 + チーム一覧"
+  competition_id: "大会 #%id%"
+  podium:
+    title: "表彰台"
+    subtitle: "トップ3"
+    silver: "準優勝"
+    champion: "優勝"
+    bronze: "第3位"
+    no_rank: "#%rank% 該当なし"
+  table:
+    title: "順位表"
+    subtitle: "平均ポイント / 試合数"
+    rank: "順位"
+    team: "チーム"
+    points: "ポイント"
+    matches: "試合数"
+    empty: "ランキングデータがありません。"
+  empty:
+    title: "ランキングがありません"
+    subtitle: "試合を行うと表彰台が表示されます。"
+
+match_comment:
+  title: "試合コメント"
+  heading: "試合コメントを編集"
+  empty:
+    title: "試合がありません"
+    subtitle: "チームを承認し、試合を生成するとここに表示されます"
+  card:
+    match_label: "試合"
+    vs: "VS"
+    team_green: "グリーンチーム"
+    team_blue: "ブルーチーム"
+    comment_title: "試合コメント"
+    no_comment: "コメントはまだありません。"
+  button:
+    add: "コメントを追加"
+    edit: "コメントを編集"
+  modal:
+    title: "試合コメント"
+    label: "コメント内容"
+    placeholder: "例：接戦だった、素晴らしい守備だった…"
+    tip: "ヒント：32文字以内で入力してください。"
+    clear: "消去"
+    cancel: "キャンセル"
+    save: "保存"
+  error:
+    access_denied_title: "⛔ 主催者専用アクセス"
+    access_denied_subtitle: "主催者アカウントでログインしてください。"
+
+schedule_management:
+  title: "スケジュール管理"
+  heading: "試合枠管理"
+  subheading: "試合時間を素早く生成・調整します。"
+  competition_id: "大会 #%id%"
+  auto_gen:
+    title: "自動生成"
+    subtitle: "所要時間 + 時間帯"
+    button:
+      generate: "生成"
+    label:
+      start_time: "開始時間"
+      end_time: "終了時間"
+      duration: "試合時間 (分)"
+  search:
+    title: "検索"
+    placeholder: "チーム名、#idで検索..."
+    only_missing: "「時間未定」のみ表示"
+    reset: "リセット"
+  table:
+    title: "試合一覧（承認済みチームのみ）"
+    subtitle: "スクロールと検索で大量のリストを管理できます。"
+    mode_save_all: "スケジュール生成済み：「すべて保存」モード"
+    vs: "vs"
+    adjust_tip: "ここで直接時間を調整できます"
+    col:
+      match: "試合"
+      id: "ID"
+      schedule: "時間"
+      action: "操作"
+    button:
+      save: "保存"
+      save_all: "生成された全スケジュールを保存"
+    empty:
+      title: "表示できる試合がありません"
+      subtitle: "承認済みチーム（ブルー＆グリーン）の試合がありません。"
+  error:
+    access_denied_title: "⛔ 主催者専用アクセス"
+    access_denied_subtitle: "主催者アカウントでログインしてください。"
+
+matches_list:
+  title: "試合一覧"
+  heading: "試合"
+  subheading: "対戦カードリスト"
+  competition_id: "大会 #%id%"
+  flash:
+    success: "成功"
+    error: "エラー"
+  orga_menu:
+    scores:
+      title: "スコア"
+      subtitle: "スコアを編集"
+    comments:
+      title: "コメント"
+      subtitle: "コメントを編集"
+    schedule:
+      title: "時間枠"
+      subtitle: "時間を編集"
+    generation:
+      title: "生成"
+      subtitle: "試合を自動生成"
+    exportICAL:
+      title: "エクスポート (ICAL)"
+      subtitle: "スケジュール(ICAL)を出力"
+    exportJSON:
+      title: "エクスポート (JSON)"
+      subtitle: "試合リスト(JSON)を出力"
+    bracket:
+      title: "トーナメント"
+      subtitle: "決勝の設定を管理"
+    projection:
+      title: "プロジェクション"
+    ranking:
+      leaderboard: "ランキング"
+  quick_action:
+    finish_all_label: "一括操作：表示されている全試合を終了にする"
+    finish_all_button: "すべて終了"
+  card_list:
+    title: "対戦カード"
+    subtitle: "承認されたチームの試合のみ表示されます。"
+    empty: "表示できる試合がありません"
+  card:
+    forfeit_badge: "不戦敗"
+    team_forfeit: "チーム棄権"
+    team_green: "グリーンチーム"
+    team_blue: "ブルーチーム"
+    vs: "VS"
+    score_label: "スコア"
+    schedule_label: "時間"
+    pitch_label: "コート"
+    comment_label: "コメント"
+    no_comment: "コメントなし"
+    actions:
+      green_forfeit: "グリーン不戦敗"
+      green_forfeit_applied: "グリーン不戦敗を適用"
+      blue_forfeit: "ブルー不戦敗"
+      blue_forfeit_applied: "ブルー不戦敗を適用"
+      finish: "終了"
+      delete: "削除"
+  bracket:
+    show_button: "最終トーナメント表を表示"
+
+tournament_params:
+  title: "トーナメント"
+  heading: "大会設定 %name%"
+  team_count: "現在の登録チーム数: %count% チーム"
+  label:
+    format: "大会形式"
+  format:
+    semi_final: "準決勝 (4チーム)"
+    quarter_final: "準々決勝 (8チーム)"
+    round_of_16: "ベスト16 (16チーム)"
+    round_of_32: "ベスト32 (32チーム)"
+  finale:
+    with_bronze: "3位決定戦あり"
+    without_bronze: "3位決定戦なし"
+  button:
+    save: "保存"
+
+match_scores:
+  title: "試合スコア"
+  heading: "スコア編集"
+  total: "合計: %count%"
+  table:
+    title: "試合リスト"
+    subtitle: "スコアを入力し「すべてのスコアを保存」をクリックしてください。"
+    col:
+      green_team: "グリーンチーム"
+      blue_team: "ブルーチーム"
+      score: "スコア"
+  button:
+    save_all: "💾 すべてのスコアを保存"
+  empty:
+    title: "編集可能な試合がありません"
+    subtitle: "承認済みチーム（statusA=1 & statusB=1）の試合のみ表示されます。"
+  error:
+    access_denied_title: "⛔ 主催者専用アクセス"
+    access_denied_subtitle: "スコアを編集するには主催者アカウントでログインしてください。"
+
+profile:
+  title: "プロフィール"
+  heading: "プロフィール"
+  subheading: "個人情報とセキュリティを管理します。"
+  card:
+    status_label: "ステータス"
+    connected: "ログイン中"
+  advice:
+    title: "アドバイス"
+    content: "固有のパスワードを使用し、定期的に変更してください。"
+  email_form:
+    title: "メールアドレス変更"
+    subtitle: "新しいアドレスを入力して確定してください。"
+    label: "新しいメールアドレス"
+    placeholder: "example@email.com"
+    privacy: "メールアドレスを第三者に共有することはありません。"
+  password_form:
+    title: "パスワード変更"
+    subtitle: "セキュリティのため、6文字以上を使用してください。"
+    label_current: "現在のパスワード"
+    label_new: "新しいパスワード"
+    tip: "ヒント：氏名を含むパスワードは避けてください。"
+  button:
+    save: "保存"
+    update: "更新"
+  flash:
+    email_success: "メールアドレスが変更されました"
+    password_success: "✅ パスワードが正常に変更されました"
+
+reset_password:
+  check_email:
+    title: "リセットメール送信完了"
+    message: "メールアドレスが登録されている場合、再設定用のリンクを送信しました。メール内の指示に従ってパスワードを変更してください。"
+  request:
+    title: "パスワードをリセット"
+    heading: "パスワードを忘れた場合"
+    subheading: "登録メールアドレスを入力してリセットリンクを受け取ってください。"
+    email_placeholder: "example@email.com"
+    button: "リセットメールを送信"
+  reset:
+    title: "パスワード再設定"
+    heading: "新しいパスワードを設定"
+    button: "パスワードを更新"
+
+email:
+  reset_password:
+    greeting: "%firstname% %lastname% 様"
+    subject: "パスワードが %org_firstname% %org_lastname% ( %role% ) によってリセットされました"
+    temp_pass_label: "仮パスワード:"
+    instruction: "ログイン後に必ずパスワードを変更してください"
+
+general_error: "エラーが発生しました"
+user_not_found: "ユーザーが見つかりません。"
+temporary_password_sent: "メールアドレスが登録されている場合、仮パスワードを送信しました。"
+password_reset_email_sent: "%email% にリセットメールを送信しました"
+password_reset_subject: "パスワードのリセット"
+current_password_incorrect: "現在のパスワードが正しくありません"
+invalid_email: "無効なメールアドレスです"
+email_updated_subject: "メールアドレス変更完了"
+email_updated_text: "メールアドレスが正常に変更されました。"
+
+matchs_list:
+  flash:
+    no_scores: "保存するスコアがありません。"
+    scores_updated: "%count% 件のスコアを保存しました。"
+    no_match_found: "この大会の試合は見つかりませんでした。"
+    all_finished: "%count% 試合を終了にしました。"
+    error_finishing: "一括終了処理に失敗しました。"
+    not_enough_teams: "試合を生成するためのチーム数が不足しています。"
+    generation_error: "試合の生成に失敗しました。"
+    not_found: "試合が見つかりません。"
+    score_update_error: "スコアの更新に失敗しました。"
+    comment_update_error: "コメントの更新に失敗しました。"
+    forfeit_error_a: "グリーンチームの不戦敗設定に失敗しました。"
+    forfeit_error_b: "ブルーチームの不戦敗設定に失敗しました。"
+    finish_error: "試合の終了処理に失敗しました。"
